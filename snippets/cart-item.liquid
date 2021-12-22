@@ -1,0 +1,387 @@
+{{ 'static-cart.css' | asset_url | stylesheet_tag }}
+<style>
+    
+ .form-field-input{
+    
+    font-family: 'Heebo', sans-serif;
+    font-size:13px;
+    height:80px;
+    
+  }
+
+</style>
+
+
+{% assign compare_at_price = 0 %}
+
+{% for variant in item.product.variants %}
+  {% if variant.id == item.variant.id and variant.compare_at_price > item.price %}
+    {% assign compare_at_price = variant.compare_at_price %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{%- assign item_has_discounts = false -%}
+{%- if item.line_level_discount_allocations.size > 0 -%}
+  {%- assign item_has_discounts = true -%}
+{%- endif -%}
+
+
+
+<div class="cart-container cart-container-space-fixed"
+       data-cartitem
+       data-cartitem-id="{{ item.variant_id }}"
+       data-cartitem-key="{{ item.key }}"
+       data-cartitem-price="{{ item.price }}">
+  
+<!--   /////////////////////////////img -->
+    <div class="cart-container-child">
+      <a href="{{ item.url }}">
+      {% if item.image %}
+        {%
+          include 'rimg',
+          img: item.image,
+          alt: item.title,
+          size: '120x'
+        %}
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder--image' }}
+      {% endif %}
+    </a>
+    </div>
+<!--  /////////////////////////////////info -->
+    <div class="cart-container-child" id="max-414-none">
+      <h3 class="cart-item-sku">
+        SKU {{ item.variant.sku }}
+      </h3>
+      <h2 class="cart-item-title">
+        <a href="{{ item.url }}">
+          {{ item.product.title }}
+        </a>
+      </h2>
+       <div class="cart-item-inventory">
+        {% if item.variant.inventory_quantity > 0 %}
+        <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/in-stock.svg?v=1637652051">
+        <span class="cart-item-in-stock">IN STOCK</span>
+        {% endif %} 
+      </div>
+   
+      {% unless item.product.has_only_default_variant %}
+        {% for option in item.product.options %}
+          <div class="cart-item--product-options">
+            <span class="cart-item--option-name">{{ option }}</span>
+            {{ item.variant.options[forloop.index0] }}
+          </div>
+        {% endfor %}
+      {% endunless %}
+      
+      <div class="cart-item-price">
+
+        {% if compare_at_price > item.price or item.original_price > item.final_price %}
+          <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+          <s class="cart-item--sale-price money">
+            {%- if item_has_discounts -%}
+              {{ item.original_price | money }}
+            {%- else -%}
+              {{ compare_at_price | money }}
+            {%- endif %}
+          </s>
+          <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+        {% endif %}
+
+        <span class="money {% if item_has_discounts %}cart-item--discount-price{% endif %} cart-item-money" >
+          {%- if item_has_discounts -%}
+            {{ item.final_price | money }}
+          {%- else -%}
+            {{ item.original_price | money }}
+          {%- endif %}
+        </span>
+        
+        
+         {% if item.price > 100000 %}
+         
+        <div class="cart-item-free-shipping">With FREE SHIPPING across Canada</div>
+          
+         {% endif %} 
+        
+      </div>
+      
+      
+      
+      {%- if item_has_discounts -%}
+        <ul class="discount-list" aria-label="{{ 'product.general.discounts' | t }}">
+          {% for discount_allocation in item.line_level_discount_allocations %}
+            <li class="discount-list-item">
+              {% include 'icon-library', id: 'icon-sale-tag' %}
+              {{ discount_allocation.discount_application.title }}
+              (-<span class="money">{{ discount_allocation.amount | money }}</span>)
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+     
+     <div class="cart-item-shipping-info">
+      <div>
+      Shipping dimension: <br id="max-414-354-block">
+        L<font class="measurement-tag">{{ item.product.metafields.measurement.length.value }}</font>"
+      x 
+        W<font class="measurement-tag">{{ item.product.metafields.measurement.width.value}}</font>"
+      x 
+        H<font class="measurement-tag">{{ item.product.metafields.measurement.height.value }}</font>"
+      </div>
+    
+     <div>
+     <br id="max-414-354-block">
+     Shipping weight:<br id="max-414-354-block">
+     {{ item.grams | weight_with_unit }}
+     </div>  
+       
+     </div>
+      
+      
+      
+  
+      
+      
+      
+    </div>
+  
+  
+  
+<!--   ///////////////////////////quantity -->
+  
+    <div class="cart-container-child">
+  
+      <div id="max-414-block">
+      
+      <h3 class="cart-item-sku">
+        SKU {{ item.variant.sku }}
+      </h3>
+      <h2 class="cart-item-title">
+        <a href="{{ item.url }}">
+          {{ item.product.title }}
+        </a>
+      </h2>
+       <div class="cart-item-inventory">
+        {% if item.variant.inventory_quantity > 0 %}
+        <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/in-stock.svg?v=1637652051">
+        <span class="cart-item-in-stock">IN STOCK</span>
+        {% endif %} 
+      </div>
+   
+      {% unless item.product.has_only_default_variant %}
+        {% for option in item.product.options %}
+          <div class="cart-item--product-options">
+            <span class="cart-item--option-name">{{ option }}</span>
+            {{ item.variant.options[forloop.index0] }}
+          </div>
+        {% endfor %}
+      {% endunless %}
+      
+      <div class="cart-item-price">
+
+        {% if compare_at_price > item.price or item.original_price > item.final_price %}
+          <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+          <s class="cart-item--sale-price money">
+            {%- if item_has_discounts -%}
+              {{ item.original_price | money }}
+            {%- else -%}
+              {{ compare_at_price | money }}
+            {%- endif %}
+          </s>
+          <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+        {% endif %}
+
+        <span class="money {% if item_has_discounts %}cart-item--discount-price{% endif %} cart-item-money" >
+          {%- if item_has_discounts -%}
+            {{ item.final_price | money }}
+          {%- else -%}
+            {{ item.original_price | money }}
+          {%- endif %}
+        </span>
+        
+        
+         {% if item.price > 100000 %}
+         
+        <div class="cart-item-free-shipping">With FREE SHIPPING across Canada</div>
+          
+         {% endif %} 
+        
+      </div>
+      
+      
+      
+      {%- if item_has_discounts -%}
+        <ul class="discount-list" aria-label="{{ 'product.general.discounts' | t }}">
+          {% for discount_allocation in item.line_level_discount_allocations %}
+            <li class="discount-list-item">
+              {% include 'icon-library', id: 'icon-sale-tag' %}
+              {{ discount_allocation.discount_application.title }}
+              (-<span class="money">{{ discount_allocation.amount | money }}</span>)
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+     
+     <div class="cart-item-shipping-info">
+      <div>
+      Shipping dimension: <br id="max-414-354-block">
+        L<font class="measurement-tag">{{ item.product.metafields.measurement.length.value }}</font>"
+      x 
+        W<font class="measurement-tag">{{ item.product.metafields.measurement.width.value}}</font>"
+      x 
+        H<font class="measurement-tag">{{ item.product.metafields.measurement.height.value }}</font>"
+      </div>
+  
+      
+    
+     <div>
+     <br id="max-414-354-block">
+     Shipping weight:<br id="max-414-354-block">
+     {{ item.grams | weight_with_unit }}
+     </div>  
+       
+     </div>
+      
+      </div>
+      
+      <div
+        class="cart-item--quantity form-fields--qty cart-quantity-height-fixed"
+        data-quantity-wrapper
+        >
+        <div class="cart-item--quantity-title">
+        {{ 'general.general.quantity' | t }}
+        </div>
+        
+        <div class="form-field form-field--qty-select {% if item.quantity < 10 %}visible{% else %}hidden{% endif %}">
+          <div class="form-field-select-wrapper">
+            <select
+              class="form-field-input form-field-select form-field-filled form-field-input-height"
+              id="quantity_{{ item.key | replace: ":", "_" }}"
+              {% if item.quantity >= 10 %}tabindex="-1"{% endif %}
+              aria-label="{{ 'general.general.quantity' | t }}"
+              data-quantity-select
+              data-cartitem-quantity
+              style="font-family: 'Heebo', sans-serif; box-shadow:none;">
+              {% for i in (1..9) %}
+                <option {% if i == item.quantity %}selected {% endif %}value="{{ i }}">
+                  {{ i }}
+                </option>
+              {% endfor %}
+              <option value="10">
+                10+
+              </option>
+            </select>
+            
+            {% include 'icon-chevron-down-small' %}
+            </div>
+        </div>
+
+
+        <div class="form-field form-field--qty-input {% if item.quantity < 10 %}hidden{% else %}visible{% endif %}">
+          <input
+            class="form-field-input form-field-number form-field-filled"
+            value="{{ item.quantity }}"
+            name="updates[]"
+            id="updates_{{ item.key }}"
+            type="text"
+            pattern="\d*"
+            {% if item.quantity < 10 %}tabindex="-1"{% endif %}
+            aria-label="{{ 'general.general.quantity' | t }}"
+            data-quantity-input
+            data-cartitem-quantity
+            style="font-family: 'Heebo', sans-serif; padding-top:5px;padding-bottom:5px;">
+        </div>
+        
+        
+        
+        
+      </div>
+      
+      <div class="item-price-height-fixed" id="max-768-414-block">
+        <span class="visually-hidden">{{ 'product.item.price.total_line_price' | t }}</span>
+        {%- if item_has_discounts -%}
+          <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+          <span class="original-price money">{{ item.original_line_price | money }}</span>
+          <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+        {%- endif -%}
+        <div
+          class="money {% if item_has_discounts %}cart-item--discount-price{% endif %}"
+          aria-live="polite"
+          data-cartitem-total
+        >
+          <span class="cart-item-money">{{ item.final_line_price | money }}</span>
+          {% if item.final_line_price > 100000 %}
+          <span class="cart-item-free-shipping">With FREE SHIPPING across Canada</span>
+          
+          {% endif %} 
+        </div>
+      </div>
+       <div class="item-price-height-fixed" id="max-414-block">
+        <span class="visually-hidden">{{ 'product.item.price.total_line_price' | t }}</span>
+        {%- if item_has_discounts -%}
+          <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+          <span class="original-price money">{{ item.original_line_price | money }}</span>
+          <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+        {%- endif -%}
+        <div
+          class="money {% if item_has_discounts %}cart-item--discount-price{% endif %}"
+          aria-live="polite"
+          data-cartitem-total
+        >
+          <span class="cart-item-money">{{ item.final_line_price | money }}</span>
+          {% if item.final_line_price > 100000 %}
+          <span class="cart-item-free-shipping">With FREE SHIPPING across Canada</span>
+          
+          {% endif %} 
+        </div>
+      </div>
+      
+    </div>
+  
+<!--   //////////////////////////price -->
+    <div class="cart-container-child" id="max-768-block">
+      <div class="">
+        <span class="visually-hidden">{{ 'product.item.price.total_line_price' | t }}</span>
+        {%- if item_has_discounts -%}
+          <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+          <span class="original-price money">{{ item.original_line_price | money }}</span>
+          <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+        {%- endif -%}
+        <div
+          class="money {% if item_has_discounts %}cart-item--discount-price{% endif %}"
+          aria-live="polite"
+          data-cartitem-total
+        >
+          <span class="cart-item-money">{{ item.final_line_price | money }}</span>
+          {% if item.final_line_price > 100000 %}
+          <span class="cart-item-free-shipping">With FREE SHIPPING across Canada</span>
+          
+          {% endif %} 
+        </div>
+      </div>
+
+    </div>
+  
+<!--   ///////////////////////////close -->
+    <div class="cart-container-child" style="justify-items:right;">
+      <div class="">
+        <a
+          href="/cart/change?line={{ forloop.index }}&amp;quantity=0"
+          class="cart-item--remove-link"
+          data-cartitem-remove
+          aria-label="remove {{ item.product.title }}"
+          onclick="clicktest()"
+        >
+          {% include 'icon-remove' %}
+        </a>
+      </div>
+    </div>
+  
+  
+  
+  
+  
+  </div>
+  
+

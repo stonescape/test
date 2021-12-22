@@ -1,0 +1,234 @@
+<style>
+  
+ 
+  .article--excerpt-content{
+    
+    text-align:left;
+    
+  }
+  
+  
+  .article--excerpt-meta-item{
+    
+    text-transform:uppercase;
+    font-size:10px;
+    color:black;
+    font-family: 'Heebo', sans-serif;
+    
+  }
+  
+  .article--excerpt-image{
+    
+    margin-top:10px;
+    
+  }
+  
+  .article--excerpt-title{
+    
+    font-family: 'Heebo', sans-serif;
+    font-weight:500;
+    margin-top:24px;
+    margin-bottom:0px;
+    font-size:18px;
+    
+  }
+  
+  .article--excerpt-text{
+    
+    font-family: 'Heebo', sans-serif;
+    font-weight:400;
+    font-size:14px;
+    margin-top:4px;
+    
+  }
+  
+  
+  .article--excerpt-content .article--excerpt-image{
+    
+    width:100%;
+    height:auto;
+    
+  }
+  
+  .article--excerpt-readmore{
+    font-family: 'Heebo', sans-serif;
+    color:#979797;
+     text-transform:uppercase;
+    font-size:12px;
+  }
+  
+ @media only screen and (max-width: 1024px) {
+   
+   .article--excerpt-text{
+    
+    line-height:18px;
+  }
+    
+
+ }
+  
+   @media only screen and (max-width: 768px) {
+   
+ 
+     li.blog-post-preview:nth-child(2n){
+       
+     margin-left:4px;
+       
+     }
+     
+     
+     
+     
+     
+     
+ }
+  
+  @media only screen and (max-width: 414px) {
+    
+     li.blog-post-preview:nth-child(2n){
+       
+     margin-left:0px;
+       
+     }
+ }
+  
+</style>
+{% comment %}
+  @param section Object
+         Required section containing settings
+
+  @param onboarding Bool
+         Triggers onboarding helper class and functionality
+
+  @param article Object
+{% endcomment %}
+
+{%- capture excerpt_class -%}
+  article--excerpt-wrapper
+  {% unless article.image or onboarding %}
+    article--excerpt-wrapper--centered
+  {% endunless %}
+{%- endcapture -%}
+
+
+<li class="{{ excerpt_class | strip_newlines }} blog-post-preview">
+<article class="article-list-item">
+
+  {% unless onboarding %}
+    
+
+    <div class="article--excerpt-content">
+      {% if section.settings.show_date or section.settings.show_author %}
+        <div class="article--excerpt-meta">
+          {% if section.settings.show_date %}
+            <span class="article--excerpt-meta-item">
+              {{ article.published_at | date: format: 'month_day_year' }}
+            </span>
+          {% endif %}
+
+          {% if section.settings.show_author %}
+            <span class="article--excerpt-meta-item">
+              {{ article.author }}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      {% if article.image %}
+      <a
+        class="article--excerpt-image" href="{{ article.url }}"
+        {%
+          include 'rimg',
+          img: article.image,
+          size: 'original',
+          crop: 'center',
+          lazy: true,
+          background: true
+        %}
+      >
+        {%
+          include 'rimg',
+          img: article.image,
+          size: 'original',
+          crop: 'center',
+          lazy: true,
+          canvas: true
+        %}
+      </a>
+    {% endif %}
+
+      <div class="article--excerpt-title">
+        <a href="{{ article.url }}">
+          {{ article.title }}
+        </a>
+      </div>
+
+      {%- if section.settings.show_excerpt -%}
+        <div class="article--excerpt-text rte">
+          {%- if article.excerpt == blank -%}
+            <div>{{ article.content | strip_html | truncatewords: 23 }}</div>
+          {%- else -%}
+            {{ article.excerpt }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <a class="article--excerpt-readmore" href="{{ article.url }}" aria-label="read {{ article.title }}">
+        {{ 'blog.general.read_more' | t }}
+
+        <span class="article--excerpt-readmore--icon">
+          {% include 'icon-chevron-down-small' %}
+        </span>
+      </a>
+      
+      
+    </div>
+  {% else %}
+    {%- capture background_image -%}
+      {%-
+        include 'placeholder_svg_uri'
+        placeholder: 'image'
+       -%}
+    {%- endcapture -%}
+    <a
+      class="article--excerpt-image placeholder--image"
+      href="{{ article.url }}"
+      style="background-image: url('{{ background_image | strip_newlines }}');"
+    >
+    </a>
+
+    <div class="article--excerpt-content">
+      {% if section.settings.show_date or section.settings.show_author %}
+        <div class="article--excerpt-meta">
+          {% if section.settings.show_date %}
+            <span class="article--excerpt-meta-item">
+              {{ 'now' | date: format: 'month_day_year' }}
+            </span>
+          {% endif %}
+
+          {% if section.settings.show_author %}
+            <span class="article--excerpt-meta-item">
+              {{ 'onboarding.article.author_name' | t }}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="article--excerpt-title">
+        <a href="#">
+          {{ 'onboarding.article.title' | t }}
+        </a>
+      </div>
+
+      <a class="article--excerpt-readmore" href="#">
+        {{ 'blog.general.read_more' | t }}
+
+        <span class="article--excerpt-readmore--icon">
+          {% include 'icon-chevron-down-small' %}
+        </span>
+      </a>
+    </div>
+  {% endunless %}
+
+</article>
+</li>
