@@ -1,0 +1,422 @@
+
+
+<div class="mobile-menu">
+
+  <div class="notification">
+    <div class="notification-center">
+  
+       <div class="notification-center-text">Free shipping to CANADA & USA*</div>
+    </div>
+  </div>
+	
+	<div class="mobile_header">
+		
+		<div class="mobile_menu">
+          
+			<div class="mobile_menu_left">
+				<div class="hamburger">
+					<div class="hamburger_two" id="hamburger-1">
+						<span class="line01"></span>
+						<span class="line02"></span>
+					</div>
+					
+				</div>
+                <a href="https://tmgindustrial.com">
+		  	
+			<div class="tmg-logo">
+				<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/tmg-logo.svg?v=1612082858">
+			</div>
+  </a>
+                
+                
+			</div>
+          
+ 
+          
+			
+		  <div class="mobile_menu_right">
+            
+<!--          <li class='mobile-droppable-contact'>
+		<a href="" data-effect="mfp-move-from-top">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/contact.svg?v=1612082858">
+            
+        </a>
+        <div class="mobile-contact_toggle">
+          
+          <div class="mobile-contact_toggle-block">
+            <a href="tel:+18777612819">Call us: 1-877-761-2819</a>
+          </div>
+          
+          
+          <div class="mobile-contact_toggle-block">
+            <a href="mailto:cs@tmgindustrial.com">Email: cs@tmgindustrial.com</a>
+          </div>
+          
+        </div>
+	       </li> -->
+        
+        
+              
+		<li>
+      
+		<a href="/cart" data-effect="mfp-move-from-top">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/checkout.svg?v=1612082858">
+        
+        </a>
+        </li>
+           
+		  </div>
+		</div>
+	</div>
+  
+	
+	<div class="mobile_menu_toggle">
+     
+
+<ul class="mobile_menu_toggle_list ">
+  {% for link in linklists[linklist].links %}
+    
+    {%- assign three_level_nav = false -%}
+    {% if link.links != blank %}
+      {% if link.levels == 2 %}
+        {%- assign three_level_nav = true -%}
+      {% endif %}
+    {% endif %}
+
+    {% if link.links != blank %}
+      <li class="mobile-mega-menu-level01-li mobile_menu_toggle_level3_parent">
+        
+        <a class="mobile-mega-menu-level01-title">
+		     {{ link.title | escape }}
+		</a>
+      
+       
+
+        <div class="">
+          {% if three_level_nav %}
+            <div class="">
+              <ul class="mobile-mega-menu-level02-ul mobile_menu_toggle_level3_child">
+                {% if link.links != blank %}
+                  {% for childlink in link.links %}
+                    <li class="mobile-mega-menu-level02-li">
+                      <a href="{{ childlink.url }}"
+                        class="mobile-mega-menu-level02-title"
+                        {% if childlink.current %} aria-current="page"{% endif %}
+                      >
+                        {{ childlink.title | escape }}
+                      </a>
+
+                      {% if childlink.links != blank %}
+                        <ul class="mobile-mega-menu-level03-ul mobile_menu_toggle_level3_grandchild">
+                       
+                        {% for grandchildlink in childlink.links %}
+                          <li class="mobile-mega-menu-level03-li">
+                            <a href="{{ grandchildlink.url }}"
+                            class="mobile-mega-menu-level03-title"
+                            {% if grandchildlink.current %} aria-current="page"{% endif %}>
+                          
+                              {{ grandchildlink.title | escape }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+
+                    </li>
+                  {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+
+          {% else %}
+            <ul class="mobile-mega-menu-level02-ul mobile_menu_toggle_level2_child">
+              {% for childlink in link.links %}
+                <li class="mobile-mega-menu-level02-li">
+                  <a href="{{ childlink.url }}"
+                  class="mobile-mega-menu-level02-title"
+                  {% if childlink.current %} aria-current="page"{% endif %}
+                >
+                    {{ childlink.title | escape }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </li>
+    {% else %}
+      <li {% if link.active %} class=""{% endif %} class="mobile-mega-menu-level01-li">
+        <a href="{{ link.url }}"
+          class="mobile-mega-menu-level01-title"
+          {% if link.current %} aria-current="page"{% endif %}
+        >
+          {{ link.title | escape }}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+  
+      
+      
+      
+<style>
+  
+  
+/*   contact */
+/*   .mobile-droppable-contact {position: static;}
+  .mobile-droppable-contact:hover .mobile-contact_toggle {
+	
+	visibility: visible;
+	opacity: 1;
+	
+} */
+  
+.mobile-contact_toggle{
+		
+		visibility: hidden;
+		position: fixed;
+		z-index: 2;
+		right: 0;
+		height: 96px;
+		background-color: #222222;
+		width: 234px;
+		opacity: 0;
+		transition: visibility 0s, opacity 0.2s ease;
+        
+		
+	}
+  
+ .mobile-contact_toggle.is-active{
+		
+	    visibility: visible;
+	    opacity: 1;
+	
+		position: fixed;
+		z-index: 2;
+		left: 0;
+		height: 96px;
+		background-color: #222222;
+		width: 100%;
+		transition: visibility 0s, opacity 0.2s ease;
+				
+	}
+  
+    .mobile-contact_toggle-block{
+      
+      border-bottom:1px solid #353535;
+      height:48px;
+      padding-top:12px;
+      padding-left:16px;
+    }
+    
+    .mobile-contact_toggle-block a{
+      
+      text-decoration:none;
+      color:#fff;
+      font-weight:500;
+      font-size:14px;
+      line-height:24px;
+      font-family: 'Heebo', sans-serif;
+      opacity:1;
+      transition: all .3s ease;
+    }
+  
+     .mobile-contact_toggle-block a:hover{
+     
+       opacity:0.48;
+       transition: all .3s ease;
+       
+    }
+    
+    
+  
+    
+
+/*   Toggle Menu */
+
+/*   Category */
+  
+  .mobile-mega-menu-level01-li:nth-child(1){
+    
+    background-color:purple;
+
+  }
+  
+/* Brand Story */
+  .mobile-mega-menu-level01-li:nth-child(2){
+    
+    background-color:#373458;
+
+  }
+  
+ /* Account */ 
+  .mobile-mega-menu-level01-li:nth-child(3){
+    
+    background-color:#120D3A;
+
+  }
+  
+  
+  /* Customer Care */ 
+  .mobile-mega-menu-level01-li:nth-child(4){
+    
+    background-color:#112C2B;
+
+  }
+  
+  /* Join Us */ 
+  .mobile-mega-menu-level01-li:nth-child(5){
+    
+    background-color:#36462A;
+
+  }
+  
+  
+  /*  All child liststyle*/
+  
+  .mobile-mega-menu-level02-ul li{
+    
+    list-style:none;
+    
+  }
+  
+   
+  /*   Category Sub - Machinery */
+  .mobile-mega-menu-level01-li:nth-child(1) .mobile-mega-menu-level02-li:nth-child(1){
+    
+    background-color:grey;
+    
+  }
+  
+  /*   Category Sub - Machinery -Sub */
+  .mobile-mega-menu-level01-li:nth-child(1) .mobile-mega-menu-level02-li:nth-child(1){
+    
+    background-color:red;
+    
+  }
+  
+  /*   Category Sub - Machinery -Sub - grandlink style */
+  
+  .mobile-mega-menu-level02-li:nth-child(1) .mobile-mega-menu-level03-li:nth-child(1) {
+    
+    font-weight:400;
+    background-color:blue;
+    
+  }
+  
+  
+  
+  .mobile-mega-menu-level02-li:nth-child(2){
+    
+    background-color:red;
+    
+  }
+  .mobile-mega-menu-level02-li:nth-child(2) a{
+    
+    font-weight:600;
+    
+  }
+  
+  .mobile-mega-menu-level02-li:nth-child(2) .mobile-mega-menu-level03-li:nth-child(2){
+    
+    background-color:green;
+    
+  }
+
+  
+  
+
+
+/*   .mobile_menu_toggle_level3_child{
+      
+      display: none;
+	  opacity: 0;
+   
+  }
+  
+	
+    .mobile_menu_toggle_level3_child.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+  }
+  
+  .mobile_menu_toggle_level3_grandchild{
+      
+      display: none;
+	  opacity: 0;
+   
+  }
+  
+	
+  .mobile_menu_toggle_level3_grandchild.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+  }
+  
+  .mobile_menu_toggle_level2_child{
+      
+      display: none;
+	  opacity: 0;
+   
+  }
+  
+	
+  .mobile_menu_toggle_level2_child.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+  } */
+  
+  
+</style>
+      
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  
+
+  
+//   $(document).ready(function(){
+//   $(".mobile_menu_toggle_level3_parent:nth-child(1)").click(function(){
+//     $('.mobile_menu_toggle_level3_child').first().toggleClass("is-active");
+//     return false;
+
+//   });
+// });
+  
+//   $( "ul li" ).first().addClass( "highlight" );
+//   $( "ul li:nth-child(1)" ).click(function(){
+		
+// 	});
+  
+//    $(document).ready(function(){
+//   $(".mobile_menu_toggle_level3_child:nth-child(1)").click(function(){
+//     $('.mobile_menu_toggle_level3_grandchild').first().toggleClass("is-active");
+//     return false;
+
+//   });
+// });
+  
+//      $(document).ready(function(){
+//   $(".mobile_menu_toggle_level3_child").eq(1).click(function(){
+//     $('.mobile_menu_toggle_level3_grandchild').eq(1).toggleClass("is-active");
+//     return false;
+
+//   });
+// });
+
+  
+//    $(document).ready(function(){
+//   $(".mobile_menu_toggle_level3_parent:nth-child(2)").click(function(){
+//     $('.mobile_menu_toggle_level2_child').first().toggleClass("is-active");
+//     return false;
+
+//   });
+// });
+  
+</script>
