@@ -1,0 +1,231 @@
+<style>
+  
+ .contact-description{
+   
+   
+    font-family: 'Heebo', sans-serif;
+    font-size:16px;
+    line-height:24px;
+    color:#000;
+    text-align:center;
+    margin:0 auto;
+    width:45%;
+    padding:0;
+ }
+  
+.contact-form-label{
+   font-family: 'Heebo', sans-serif;
+   font-size:14px;
+   line-height:24px;
+}
+  
+@media only screen and (max-width: 1029px){
+  
+   .contact-description{
+      font-size:16px;
+    line-height:24px;
+      width:50%;
+   }
+  
+}
+  
+  @media only screen and (max-width: 996px){
+  
+   .contact-description{
+      font-size:16px;
+    line-height:24px;
+      width:60%;
+   }
+  
+}
+  
+   @media only screen and (max-width: 600px){
+  
+   .contact-description{
+      font-size:14px;
+    line-height:22px;
+      width:90%;
+   }
+  
+}
+  
+.contact-page-content{
+  
+  padding-top:0;
+  margin-top:32px;
+  margin-bottom:0;
+  
+  
+}
+  
+  
+</style>
+<div class="margin-top-fix">
+{% section 'contact-top-banner' %}  
+
+<article class="site-page" data-template-page data-template-contact style="width:100%; margin-top:32px;margin-bottom:0;">
+  
+  
+
+<!--   <header class="page-masthead">
+    <h1 class="page-title">
+      {{ page.title }}
+    </h1>
+  </header> -->
+  
+  <div class="contact-description">
+   Headquartered in Richmond, British Columbia we are proud to 
+offer customer service and sales support for all of North America. 
+We are available 8:30-5 PST weekdays via phone and email.
+  </div>
+  
+  
+  
+  
+  
+  
+  {% form 'contact' %}
+
+<!--     {% if page.content != blank %}
+      <div class="page-content rte">
+        {{ page.content }}
+      </div>
+    {% endif %} -->
+
+    <div class="contact-page-content">
+      {% assign has_message = false %}
+
+      {% if form.errors != blank %}
+        {% assign has_message = true %}
+        {% assign message_type = 'error' %}
+      {% endif %}
+
+      {% if form.posted_successfully? %}
+        {% assign has_message = true %}
+        {% assign message_type = 'success' %}
+      {% endif %}
+
+      {% if has_message %}
+        <div class="contact-message message--{{ message_type }}">
+          {% case message_type %}
+            {% when 'success' %}
+              <p>
+                {{ 'contact.form.post_success' | t }}
+              </p>
+            {% when 'error' %}
+              {{ form.errors | default_errors }}
+          {% endcase %}
+        </div>
+      {% endif %}
+
+      <div class="form-fields-columns">
+        <div class="form-field form-field--half">
+          {% assign value = '' %}
+          {%- if form.name -%}
+            {% assign value = form.name %}
+          {%- elsif customer -%}
+            {% assign value = customer.name %}
+          {%- endif -%}
+          
+          <span class="contact-form-label">{{ 'contact.form.name' | t }}</span>
+          <input
+            class="form-field-input form-field-text {% if form.errors contains 'name' %}form-field-error{% endif %}"
+            id="contact_name"
+            name="contact[name]"
+            type="text"
+            value="{{ value }}"
+            >
+
+<!--           <label class="form-field-title" for="contact_name">
+            {{ 'contact.form.name' | t }}
+          </label> -->
+        </div>
+
+        <div class="form-field form-field--half">
+          {% assign value = '' %}
+          {%- if form.email -%}
+            {% assign value = form.email %}
+          {%- elsif customer -%}
+            {% assign value = customer.email %}
+          {%- endif -%}
+          <span class="contact-form-label">{{ 'contact.form.email' | t }}</span>
+          <input
+            class="form-field-input form-field-text {% if form.errors contains 'email' %}form-field-error{% endif %}"
+            id="contact_email"
+            name="contact[email]"
+            type="text"
+            value="{{ value }}"
+           
+            autocorrect="off"
+            autocapitalize="off">
+<!-- 
+          <label class="form-field-title" for="contact_email">
+            {{ 'contact.form.email' | t }}
+          </label> -->
+        </div>
+      </div>
+
+      <div class="form-field">
+        {% assign value = '' %}
+        {%- if form.phone -%}
+          {% assign value = form.phone %}
+        {%- elsif customer -%}
+          {% assign value = customer.phone %}
+        {%- endif -%}
+        <span class="contact-form-label">{{ 'contact.form.phone' | t }}</span>
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'phone' %}form-field-error{% endif %}"
+          id="contact_phone"
+          name="contact[phone]"
+          type="tel"
+          value="{{ value }}"
+          >
+
+<!--         <label class="form-field-title" for="contact_phone">
+          {{ 'contact.form.phone' | t }}
+        </label> -->
+      </div>
+
+      <div class="form-field">
+        {% assign value = '' %}
+        {%- if form.body -%}
+          {% assign value = form.body %}
+        {%- endif -%}
+        <span class="contact-form-label">{{ 'contact.form.message' | t }}</span>
+        <textarea
+          class="form-field-input form-field-textarea {% if form.errors contains 'body' %}form-field-error{% endif %}"
+          id="contact_message"
+          name="contact[message]"
+          >{{ value }}</textarea>
+
+<!--         <label class="form-field-title" for="contact_body">
+          {{ 'contact.form.message' | t }}
+        </label> -->
+      </div>
+
+      <div class="form-action-row">
+        <button class="button-primary contact-form-button" type="submit" 
+                style="display:block;
+    text-align:center;
+    margin:0 auto;
+    font-family: 'Heebo', sans-serif;
+    font-size:16px;
+    line-height:24px;
+    color:#000;
+    text-transform:uppercase;
+    width:160px;
+    padding-top:12px;
+    padding-bottom:12px;
+    height:48px;">
+          {{ 'contact.form.send' | t }}
+        </button>
+      </div>
+    </div>
+  {% endform %}
+</article>
+
+{% section 'contact-features' %}
+
+
+
+</div>
