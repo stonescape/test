@@ -1,0 +1,613 @@
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+<div class="modular-4-default">
+	
+<!--   Section Title -->
+	<div class="modular-4-text">
+		<div class="modular-4-title">
+			{{ section.settings.title }} 
+		</div>
+	</div>
+	
+<!--   Product Image -->
+  
+  
+  <div class="modular-4-content">
+
+  {% for block in section.blocks limit: section.blocks.size %}
+
+    {% if block.settings.image != blank %}
+      
+        {% if block.settings.link != blank %}{% endif %}
+          <a href="{{ block.settings.link}}">
+          <div class="modular-4-image">
+           <img src="{{ block.settings.image | img_url: 'master' }}" >
+            <div class="modular-4-product-info">
+            	<div class="modular-4-product-title">{{ block.settings.text_collection }}</div>
+                <div class="modular-4-cta-button">
+    				
+          				<p>EXPLORE</p>
+                        <img src="https://cdn.shopify.com/s/files/1/0557/4177/6041/files/arrow_black.svg?v=1616898638">
+        			
+        		</div> 
+            </div>
+          </div>
+          </a>
+        
+        {% if block.settings.link != blank %}
+  
+        
+  
+        {% endif %}
+     
+    {% else %}
+  
+    
+    {% endif %}
+
+  {% endfor %}
+</div>
+  
+  
+  
+</div>
+
+
+
+<style>
+	
+/* 	percentage size */
+
+/*
+	.modular-4-1{
+		width: 96.25%;
+		margin: 0 auto;
+		background-color: blue;
+	}
+	.modular-4-2{
+		
+		width: 100%;
+	}
+	.modular-4-3{
+		
+		float: left;
+		width:25%;
+		
+	}
+	.modular-4-3 img{
+      
+		width: 89.2%;
+		margin: 0 auto;
+		display: block;
+		
+	}
+*/
+	
+/* 	absolute value size for extreme size*/
+
+  * {
+       box-sizing: border-box;
+       color:#000;
+    }
+  
+    .modular-4-default{
+		 width: 100%;
+         padding:0 56px;
+         margin-top:48px;
+         float:left;
+	}
+  
+     .modular-4-title{
+	    
+	    margin-left: 8px;
+	    margin-bottom: 24px;
+	    font-size: 24px;
+	    line-height: 32px;
+	    font-family: 'Heebo', sans-serif;
+        font-weight:600;
+	    float: left;
+	     
+    }
+    
+    .modular-4-text{
+	    
+	    display: block;
+	    width: 100%;
+	    float: left;
+	    
+    }
+    
+	
+	.modular-4-image{
+		 position:relative;
+		 float: left;
+         width: 25%;
+         padding:8px 8px;
+	} 
+  
+    .modular-4-product-info{
+         
+         position: absolute;
+		 text-align: center;
+		 width: 80%;
+    	 margin: 0;
+    	 left: 50%;
+    	 transform: translate(-50%, 0); 
+         bottom:16px;
+    	 z-index:3; 
+    	 color:#fff;
+         
+	}
+  
+
+    .modular-4-product-title{
+		
+		 font-size:20px;
+      	 line-height:28px;
+         padding:0;
+         margin:0;
+         margin-bottom: 8px;
+         font-family: 'Heebo', sans-serif;
+         font-weight:600;
+	}
+	
+	.modular-4-image img{
+      
+		width: 100%;
+       
+	}
+	
+     .modular-4-cta-button{
+  
+          
+          padding:0; 
+          margin:0 auto; 
+          margin-bottom:16px;
+          width:100px;
+    }
+    
+    .modular-4-cta-button{
+         opacity:1;
+         transform: translate(0,0);
+         transition:all 0.3s ease;
+         
+    }
+    
+     .modular-4-image:hover .modular-4-cta-button{
+         opacity:0.64;
+         transform: translate(8px,0);
+         transition:all 0.3s ease;
+    }
+  
+  
+	.modular-4-cta-button a{
+       color: #000;
+       text-decoration: none;
+     
+    }
+    
+  
+   .modular-4-cta-button p{
+       display: inline-block;
+       position: relative;
+       margin:0;
+       font-family: 'Heebo', sans-serif;
+       font-size: 16px;
+       line-height: 16px;
+       font-weight:500;
+
+   }
+  
+  .modular-4-cta-button img{
+       
+       width:12px;
+       display:inline-block;
+       padding:0;
+       margin:0;
+       transform: translate(-4px,0px);
+   }
+  
+
+    
+    .modular-4-content{
+	    
+	    display: block;
+	    width: 100%;
+	    
+    }
+  
+  
+  /* responsive web - ipad pro */
+    
+     @media only screen and (max-width: 1024px){
+       
+       
+ 
+       
+       
+     }
+ 
+
+
+ /* responsive web - 996 */
+    @media only screen and (max-width: 996px){
+      
+      
+      
+      
+      .modular-4-product-title{
+		
+		 font-size:18px;
+      	 line-height:26px;
+         padding:0;
+         margin:0;
+         margin-bottom: 4px;
+         font-family: 'Heebo', sans-serif;
+         font-weight:600;
+	}
+      
+      .modular-4-cta-button{
+  
+          
+          padding:0; 
+          margin:0 auto; 
+          margin-bottom:12px;
+          width:100px;
+    }
+      
+      .modular-4-cta-button p{
+       display: inline-block;
+       position: relative;
+       margin:0;
+       font-family: 'Heebo', sans-serif;
+       font-size: 14px;
+       line-height: 14px;
+       font-weight:500;
+
+   }
+  
+      .modular-4-cta-button img{
+       
+       width:12px;
+       display:inline-block;
+       padding:0;
+       margin:0;
+       transform: translate(-4px,1px);
+   }
+    
+
+     
+    
+    }
+  
+   
+  @media only screen and (max-width: 800px){
+    
+   
+    
+    .modular-4-default{
+		 width: 100%;
+         padding:0 24px;
+         margin-top:32px;
+         float:left;
+	}
+    
+
+     
+    .modular-4-title{
+	    
+	    margin-left: 8px;
+	    margin-bottom: 16px;
+	    font-size: 20px;
+	    line-height: 28px;
+	    font-family: 'Heebo', sans-serif;
+        font-weight:600;
+	    float: left;
+	     
+    }
+    
+    
+     .modular-4-product-title{
+		
+		 font-size:16px;
+      	 line-height:24px;
+         padding:0;
+         margin:0;
+         margin-bottom: 2px;
+         font-family: 'Heebo', sans-serif;
+         font-weight:600;
+	}
+      
+      .modular-4-cta-button{
+  
+          
+          padding:0; 
+          margin:0 auto; 
+          margin-bottom:10px;
+          width:100px;
+    }
+      
+      .modular-4-cta-button p{
+       display: inline-block;
+       position: relative;
+       margin:0;
+       font-family: 'Heebo', sans-serif;
+       font-size: 12px;
+       line-height: 12px;
+       font-weight:500;
+
+   }
+  
+      .modular-4-cta-button img{
+       
+       width:10px;
+       display:inline-block;
+       padding:0;
+       margin:0;
+       transform: translate(-4px,1px);
+   }
+    
+    
+    
+    
+    
+  }
+  
+  @media only screen and (max-width: 700px){
+    
+   
+    
+   
+    
+     .modular-4-product-title{
+		
+		 font-size:14px;
+      	 line-height:22px;
+         padding:0;
+         margin:0;
+         margin-bottom: 2px;
+         font-family: 'Heebo', sans-serif;
+         font-weight:600;
+	}
+      
+      .modular-4-cta-button{
+  
+          
+          padding:0; 
+          margin:0 auto; 
+          margin-bottom:10px;
+          width:100px;
+    }
+      
+      .modular-4-cta-button p{
+       display: inline-block;
+       position: relative;
+       margin:0;
+       font-family: 'Heebo', sans-serif;
+       font-size: 12px;
+       line-height: 12px;
+       font-weight:500;
+
+   }
+  
+      .modular-4-cta-button img{
+       
+       width:10px;
+       display:inline-block;
+       padding:0;
+       margin:0;
+       transform: translate(-4px,1px);
+   }
+    
+    
+    
+    
+    
+  }
+
+/* responsive web - mobile */
+    @media only screen and (max-width: 600px){
+      
+      
+      .modular-4-default{
+		 width: 100%;
+         padding:0 8px;
+         margin-top:32px;
+         float:left;
+	}
+      
+      .modular-4-title{
+	    
+	    margin-left: 8px;
+	    margin-bottom: 8px;
+	    font-size: 16px;
+	    line-height: 24px;
+	    font-family: 'Heebo', sans-serif;
+        font-weight:600;
+	    float: left;
+	     
+    }
+      
+      
+      .modular-4-image{
+		 position:relative;
+		 float: left;
+         width: 50%;
+         padding:8px 8px;
+	} 
+      
+    .modular-4-product-info{
+         
+         position: absolute;
+		 text-align: center;
+		 width: 80%;
+    	 margin: 0;
+    	 left: 50%;
+    	 transform: translate(-50%, 0); 
+         bottom:10px;
+    	 z-index:3; 
+    	 color:#fff;
+         
+	}
+     .modular-4-product-title{
+		
+		 font-size:16px;
+      	 line-height:24px;
+         padding:0;
+         margin:0;
+         margin-bottom: 2px;
+         font-family: 'Heebo', sans-serif;
+         font-weight:600;
+	}
+      
+      
+      
+      .modular-4-cta-button{
+  
+          
+          padding:0; 
+          margin:0 auto; 
+          margin-bottom:16px;
+          width:100px;
+    }
+      
+      .modular-4-cta-button p{
+       display: inline-block;
+       position: relative;
+       margin:0;
+       font-family: 'Heebo', sans-serif;
+       font-size: 12px;
+       line-height: 12px;
+       font-weight:500;
+
+   }
+  
+      .modular-4-cta-button img{
+       
+       width:10px;
+       display:inline-block;
+       padding:0;
+       margin:0;
+       transform: translate(-4px,0.75px);
+   }
+    
+      
+    
+   
+    }
+
+    /* iphone SE/5 */
+    @media only screen and (max-width: 321px){
+      
+       .modular-4-product-title{
+		
+		 font-size:14px;
+      	 line-height:22px;
+         padding:0;
+         margin:0;
+         margin-bottom: 0px;
+         font-family: 'Heebo', sans-serif;
+         font-weight:600;
+	}
+      
+      .modular-4-product-info{
+         
+         position: absolute;
+		 text-align: center;
+		 width: 80%;
+    	 margin: 0;
+    	 left: 50%;
+    	 transform: translate(-50%, 0); 
+         bottom:6px;
+    	 z-index:3; 
+    	 color:#fff;
+         
+	}
+      
+      
+    }
+
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "image",
+	
+   "max_blocks": 20,
+   "settings": [
+     
+	{
+         "type": "text",
+         "label": "Section Title",
+         "id": "title",
+         "default":"Module 02: Selected Collection"
+       }
+   ],
+   "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+   
+        {
+          "type": "text",
+          "id": "text_collection",
+          "label": "Collection Name",
+          "default":"Collection Name"
+        },
+   
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Image link"
+        }
+
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Selection",
+      "category": "Image",
+      
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+
+
+    
+  }
+{% endschema %}
+
+
+
+
+
+
+
+    
+
+
+

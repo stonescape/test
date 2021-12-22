@@ -1,0 +1,1077 @@
+<style>
+    
+ .form-field-input{
+    
+    font-family: 'Heebo', sans-serif;
+    font-size:13px;
+    height:80px;
+    
+  }
+
+</style>
+{% assign is_customer = false %}
+{% if shop.customer_accounts_enabled and customer %}
+  {% assign is_customer = true %}
+{% endif %}
+{% assign total_value = cart.total_price %} 
+{% assign has_sidebar = false %}
+{% assign has_items = false %}
+{% assign show_continue_link = false %}
+
+{% if section.blocks.size > 0 %}
+  {% assign has_sidebar = true %}
+{% endif %}
+
+{% if cart.items.size > 0 %}
+  {% assign has_items = true %}
+{% endif %}
+
+{% assign continue_url = "/collections/all" %}
+{% if settings.continue_shopping_url != blank %}
+  {% assign continue_url = settings.continue_shopping_url %}
+{% endif %}
+
+{% if settings.continue_url_cart %}
+  {% assign show_continue_link = true %}
+  {%- capture continue_link_html -%}
+    <a class="cart-continue" href="{{ continue_url }}" style="font-family: 'Heebo', sans-serif;">
+      {{ 'cart.general.continue_shopping' | t }}
+      {% include 'icon-chevron-down-small' %}
+    </a>
+  {%- endcapture -%}
+{% endif %}
+
+
+
+<script
+  type="application/json"
+  data-section-type="static-cart"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  {
+    "settings": {
+      "shipping": {{ section.settings.enable_shipping_calc | json }},
+      "stock_limit": {{ 'cart.general.stock_limit' | t: quantity: '** quantity **', title: '** title **' | json }},
+      "money_format": {{ shop.money_format | strip_html | json }}
+    },
+    "shipping": {
+      "calculate_shipping": {{ 'cart.shipping.calculate_shipping' | t | json }},
+      "calculating": {{ 'cart.shipping.calculating' | t | json }},
+      "customer": {{ is_customer | default: false | json }},
+      "multiple_rates": {{ 'cart.shipping.multiple_rates' | t: number_of_rates: '*number_of_rates*', address: '*address*', rate: '*rate*' | json }},
+      "one_rate": {{ 'cart.shipping.one_rate' | t: address: '*address*' | json }},
+      "no_rates": {{ 'cart.shipping.no_rates' | t | json }},
+      "rate_value": {{ 'cart.shipping.rate_value' | t: rate_title: '*rate_title*', rate: '*rate*'  | json }},
+      "zip": {{ 'cart.shipping.zip' | t | json }},
+      "shipment_too_heavy": {{ 'cart.shipping.shipment_too_heavy' | t | json }},
+      "error_general": {{ 'cart.shipping.error_general' | t | json }}
+    }
+  }
+  
+ 
+</script>
+
+
+<div class="margin-top-fix-cart">
+<form
+  action="/cart"
+  method="post"
+  aria-label="cart checkout"
+>
+  
+  <header>
+      <h1 class="cart-title">SHOPPING CART</h1>
+  </header>
+  
+
+
+<!--   original section -->
+  <section class="cartitems--container {% if has_sidebar %}has-sidebar{% endif %}">
+    <div class="cartitems">
+      {% if has_items %}
+        {%
+          include 'cart-item-list',
+          cart: cart
+        %}
+      
+      
+      
+  
+      <div class="cart-price-container cart-container-price-space-fixed" style="border:none;margin-top:8px;">
+    
+<!--         1 -->
+        <div class="cart-container-child" >
+          
+          <span class="cart-subtotal-font" id="max-414-block">
+                {{ 'cart.general.subtotal' | t }} 
+               
+          </span>
+      
+        </div>
+<!--        2  -->
+    <div class="cart-container-child">
+      <div id="max-414-block" >
+     <span id="cart-total" class="money cart-subtotal-font" data-cart-total>{{ cart.total_price | money }}</span>
+      </div>
+    </div>
+<!--     3     -->
+    <div class="cart-container-child cart-price-right-align" id="max-414-none">
+      <span class="cart-subtotal-font">
+                {{ 'cart.general.subtotal' | t }} 
+       </span>
+    </div>
+<!--     4     -->
+    <div class="cart-container-child cart-price-right-align" id="max-414-none">
+      <div id="max-768-block">
+      <span id="cart-total" class="money cart-subtotal-font" data-cart-total>{{ cart.total_price | money }}</span>
+      </div>
+       <div id="max-768-414-block">
+      <span id="cart-total" class="money cart-subtotal-font" data-cart-total>{{ cart.total_price | money }}</span>
+    </div>
+      </div>
+    
+<!--       5 -->
+   <div class="cart-container-child cart-price-right-align"  id="max-414-none">
+  
+   </div>    
+  </div>
+  
+  
+  <div class="cart-price-container cart-container-price-space-fixed" style="border:none;">
+     {% if cart.total_price > 100000 %}
+    <!--         1 -->
+    <div class="cart-container-child">
+      
+      <div class="cart-subtotal-font"  id="max-414-block">Shipping & Handling Fee</div>
+      
+    </div>
+    <!--         2 -->
+    <div class="cart-container-child">
+      
+      <div class="cart-subtotal-font"  id="max-414-block">
+       
+        $00.00 CAD
+      
+      </div>
+     
+    </div>
+    <!--         3 -->
+     
+    <div class="cart-container-child cart-price-right-align"  id="max-414-none">
+      <div class="cart-subtotal-font">Shipping & Handling Fee</div>
+    </div>
+    <!--         4 -->
+    <div class="cart-container-child cart-price-right-align" id="max-768-block" >
+      <div class="cart-subtotal-font"  id="max-414-none">
+       
+        $00.00 CAD
+      
+      </div>
+    </div>
+    
+    <!--         5 -->
+       <div class="cart-container-child cart-price-right-align"  id="max-414-none">
+         <div class="cart-subtotal-font" id="max-768-414-block">
+       
+        $00.00 CAD
+      
+      </div>
+      
+    </div>
+     {% else %}
+     
+         {% endif %}
+  </div>
+  
+  
+  <h3 class="cart-h3">
+    Help us provide you with a quick and successful delivery
+  </h3>
+  
+  <div class="cart-information">
+    
+    
+    
+     {% if section.settings.enable_order_notes %}
+    
+    <div class="cart-information-child">
+      
+      <div class="cart-note-block">
+        
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1">1</font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">Do you have a forklift to unload?*</h4>
+        </div>
+        </div>
+        
+        <div  class="max-414-none-note">
+        <font class="cart-note-h1">1</font>
+        </div>
+        <div  class="max-414-none-note">
+          <h4 class="cart-note-h4">Do you have a forklift to unload?*</h4>
+        </div>
+        
+        <div class="cart-button-block">
+      
+     
+              
+              <div class="radio-button">
+              <label>
+              <input id="forklift-yes" type="radio" name="forklift" value="Does the customer have a forklift: Yes" onclick="addforklifttext(); clicktest();"  class="form-control" required>
+                 <span>Yes</span>
+              </label>
+                
+              </div>
+              
+              <div class="radio-button">
+                <label>
+                  <input id="forklift-no" type="radio" name="forklift" value="Does the customer have a forklift: No" onclick="addforklifttext(); clicktest();"  class="form-control" required>
+                  <span>No</span>
+                </label>
+              </div>
+      </div> 
+        
+        
+      </div>
+      
+      
+      
+      
+<!--       test question02 -->
+      <div class="cart-note-block">
+        
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1">2</font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">Do you have a loading dock?*</h4>
+        </div>
+        </div>
+        
+        <div class="max-414-none-note">
+        <font class="cart-note-h1">2</font>
+        </div>
+        <div class="max-414-none-note">
+          <h4 class="cart-note-h4">Do you have a loading dock?*</h4>
+        </div>
+        
+        <div class="cart-button-block">
+      
+     
+              
+              <div class="radio-button">
+              <label>
+                
+              <input id="loadingdock-yes" type="radio" name="loadingdock" value="Does the customer have a loading dock to unload: Yes" onclick="addloadingdocktext(); clicktest();" required>
+                 <span>Yes</span>
+              </label>
+                
+              </div>
+              
+              <div class="radio-button">
+                <label>
+                  <input id="loadingdock-no" type="radio" name="loadingdock" value="Does the customer have a loading dock to unload: No" onclick="addloadingdocktext(); clicktest();" required>
+                  <span>No</span>
+                </label>
+              </div>
+      </div> 
+      
+      </div>
+      
+      
+<!--    test Question 3--- child of 2 -->
+      
+       <div id="loadingdock-yes-child">
+      <div class="cart-note-block">
+        
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1"> > </font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">Is your address accessible by a 53-ft semi truck? *</h4>
+        </div>
+        </div>
+        
+        <div class="max-414-none-note">
+        <font class="cart-note-h1"> > </font>
+        </div>
+        <div class="max-414-none-note">
+          <h4 class="cart-note-h4">Is your address accessible by a 53-ft semi truck? *</h4>
+        </div>
+        
+        
+        
+        <div class="cart-button-block">
+      
+     
+              
+              <div class="radio-button">
+              <label>
+                
+              <input id="truck53-yes" type="radio" name="truck53" value="Is your address accessible by a 53-ft semi truck?: Yes" onclick="addtruck53text()">
+                 <span>Yes</span>
+              </label>
+                
+              </div>
+              
+              <div class="radio-button">
+                <label>
+                  <input id="truck53-no" type="radio" name="truck53" value="Is your address accessible by a 53-ft semi truck?: No" onclick="addtruck53text()">
+                  <span>No</span>
+                </label>
+              </div>
+      </div> 
+      </div> 
+      </div>
+      
+      
+<!--   question 03     -->
+      
+      
+      <div class="cart-note-block">
+        
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1">3</font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">Do you need an appointment for delivery?*</h4>
+        </div>
+        </div>
+        
+        <div class="max-414-none-note">
+        <div>
+        <font class="cart-note-h1">3</font>
+        </div>
+        </div>
+        <div class="max-414-none-note">
+        <div>
+          <h4 class="cart-note-h4">Do you need an appointment for delivery?*</h4>
+        </div>
+        </div>
+        
+        <div class="cart-button-block">
+      
+     
+              
+              <div class="radio-button">
+              <label>
+                
+              <input id="appointment-yes" type="radio" name="appointment" value="Do you need an appointment for delivery?: Yes" onclick="addappointmenttext()" required>
+                 <span>Yes</span>
+              </label>
+                
+              </div>
+              
+              <div class="radio-button">
+                <label>
+                  <input id="appointment-no" type="radio" name="appointment" value="Do you need an appointment for delivery?: No" onclick="addappointmenttext()" required>
+                  <span>No</span>
+                </label>
+              </div>
+      </div> 
+      </div> 
+      
+<!--   child of question3     -->
+     <div id="appointment-yes-child"> 
+      <div class="cart-note-block">
+        
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1"> > </font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">What days and times can the delivery be made?*</h4>
+        </div>
+        </div>
+        
+        <div class="max-414-none-note">
+           <font class="cart-note-h1"> > </font>
+        </div>
+        
+        <div class="max-414-none-note">
+          <h4 class="cart-note-h4">What days and times can the delivery be made?*</h4>
+        </div>
+        
+        <div class="cart-textarea-block">
+      
+       <textarea class="form-field-input" name="delivery-date" id="delivery-date"></textarea>
+              
+              
+      </div> 
+      </div>
+      </div>
+      
+  <!--   question 04     -->  
+      
+
+      
+      <div class="cart-note-block">
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1">4</font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">Residential or commercial delivery?*</h4>
+        </div>
+        </div>
+        
+        <div class="max-414-none-note">
+          <font class="cart-note-h1">4</font>
+        </div>
+        
+        <div class="max-414-none-note">
+          <h4 class="cart-note-h4">Residential or commercial delivery?*</h4>
+        </div>
+        
+        <div class="cart-button-block">
+      
+     
+              
+              <div class="radio-button">
+              <label>
+                
+              <input id="delivery-res" type="radio" name="delivery" value="Residential or commercial: Residential" onclick="adddeliverytext()" required>
+                 <span>Residential</span>
+              </label>
+                
+              </div>
+              
+              <div class="radio-button">
+                <label>
+                  <input id="delivery-com" type="radio" name="delivery" value="Residential or commercial: Commercial" onclick="adddeliverytext()" required>
+                  <span>Commercial</span>
+                </label>
+              </div>
+          
+              <div class="radio-button">
+                <label>
+                  <input id="delivery-farm" type="radio" name="delivery" value="Residential or commercial: Farm" onclick="adddeliverytext()" required>
+                  <span>Farm</span>
+                </label>
+              </div>
+      </div> 
+      </div>
+      
+      
+      
+      <div class="cart-note-block">
+        
+        <div class="max-414-block-note">
+        <div>
+        <font class="cart-note-h1"></font>
+        </div>
+        <div>
+          <h4 class="cart-note-h4">Any other special delivery notes:</h4>
+        </div>
+        </div>
+        
+        <div class="max-414-none-note">
+          <font class="cart-note-h1"></font>
+        </div>
+        
+        <div class="max-414-none-note">
+          <h4 class="cart-note-h4">Any other special delivery notes:</h4>
+        </div>
+          
+        
+        <div class="cart-textarea-block">
+      
+        <textarea class="form-field-input" name="extra-note" id="extra-note"></textarea>
+      	<textarea style="display:none" name="note" id="cart-note"></textarea>
+ 
+      </div> 
+      </div>
+      
+      
+      
+   
+      
+    </div>
+    
+    
+<!--  ///////////////////////////////////////////////////////////////////////////////////////////////    -->
+<!--     mobile cart note -->
+<!--     delete -->
+     {% endif %}
+    
+
+    
+    <div class="cart-information-child">
+      
+      
+     <div class="cart-note-condition">
+     
+      <div class="item-measurement">
+      <h4 class="cart-h4" id="default-delivery-info">
+       Please answer the delivery questions
+      </h4>
+      </div>
+     
+       <div id="tailgate-delivery">
+       <div class="truck-delivery">
+        
+          <div class="truck-delivery-block">
+            <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/shopping-cart-page-icons-06.svg?v=1638079037">
+          
+            <h4 class="cart-h2">
+              We will arrange powered tailgate service for your order free of charge
+            </h4>
+          </div>
+       
+       </div>
+       </div>
+       
+       
+       <div id="full-truck">
+       <div class="truck-delivery">
+        
+          <div class="truck-delivery-block">
+            <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/shopping-cart-page-icons-07.svg?v=1639339700">
+          
+            <h4 class="cart-h2">
+              we will arrange delivery with a truck for your order free of charge
+            </h4>
+          </div>
+       
+       </div>
+       </div>
+       
+       <div class="item-measurement">
+      <h4 class="cart-h4" id="delivery-contact">
+       We are unable to determine if this can be delivered, please call or email us to make delivery arrangements before placing your order
+      </h4>
+      </div>
+      </div>
+      
+      <div  id="delivery-time">
+      <div class="cart-note-condition">
+          <h4 class="cart-h4">
+          Your order will ship out in
+          </h4>
+          <h4 class="cart-h1">
+            1-2  <font class="cart-h2">days</font>
+          </h4>
+      </div>
+      </div>
+      
+      
+       {% if cart.total_price <= 100000 %}
+       <div class="cart-note-condition cart-note-notice">
+          <h4 class="cart-h4">
+          Shipping fee will be charged on this item. We offer free shipping over $1000
+          </h4>
+      </div>
+      {% endif %}
+      
+      
+      <div class="cart-button-section">
+        
+        
+        
+        <a href="{{ continue_url }}">
+        <div class="cart-cta">
+          Continue Shopping
+        </div>
+        </a>
+        
+        
+        
+        {% if cart.total_price > 1000000 %}
+        
+        <div
+              class="cart-cta cart-cta-orange"
+              onclick="return myFunction()"
+            >
+                Contact Us
+        </div>
+    
+        
+        {% else %}
+        
+          
+       
+        <button 
+         class="cart-cta cart-cta-orange"
+         type="submit"
+         name="checkout"
+         aria-label="{{ 'cart.general.checkout' | t }}"
+         onclick="onclickfunc()"
+         id="checkout-cta"
+        >
+          Proceed to Checkout
+        </button>
+        
+        <a href="/pages/contact">
+        <div
+         class="cart-cta cart-cta-orange"
+         id="contact-cta"
+        >
+          Contact Us
+        </div>
+        </a>
+        
+        
+        {% endif %}
+        
+      </div>
+    
+      <div class="cart-payment-information">
+         <div id="paybright-widget-container"></div>
+      </div>
+      
+      <div class="cart-order-information">
+        <h3 class="cart-h3">
+        With every TMG Industrial™ order you get
+        </h3>
+        <div class="cart-order-information-block">
+        <div class="cart-order-information-detail">
+          <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/check-icon-orange.svg?v=1638082930">
+          FREE SHIPPING to you across Canada
+        </div>
+        <div class="cart-order-information-detail">
+          <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/check-icon-orange.svg?v=1638082930">
+          Real customer service agents available to help
+        </div>
+        <div class="cart-order-information-detail">
+          <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/check-icon-orange.svg?v=1638082930">
+          Reliable parts availability
+        </div>
+        <div class="cart-order-information-detail">
+          <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/check-icon-orange.svg?v=1638082930">
+          1-year warranty
+        </div>
+        </div>
+      </div>
+      
+      <div class="cart-warranty">
+        <h6 class="cart-h6">
+        Orders cancelled prior to shipping will be subject to a standard 3% credit card payment processing fee.<br><br>
+        Orders cancelled after shipping are subject to a standard 15% restocking fee to recoup freight costs.<br><br>
+        Delivery to PO boxes not available.
+        </h6>
+        
+      </div>
+
+  </div>
+  
+  </div>
+      
+      
+
+      
+        <div class="cart-total">
+          
+<!--           <div class="">
+            <ul class="discount-list" data-cart-discounts aria-label="{{ 'product.general.discounts' | t }}">
+              {%
+                include 'cart-discounts',
+                cart: cart
+              %}
+            </ul>
+
+            <div class="cart-subtotal-layout">
+              <span class="cart-subtotal-font" data-cart-count="{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}">
+                {{ 'cart.general.subtotal' | t }} 
+                (
+                {% if cart.item_count == 1 %}{{ cart.item_count }} item{% endif %}
+                {% if cart.item_count >= 2 %}{{ cart.item_count }} items{% endif %}
+                )
+               
+              </span>
+             
+              <span id="cart-total" class="money cart-subtotal-font" data-cart-total>{{ cart.total_price | money }}</span>
+            </div>
+          </div>
+           -->
+
+
+          <script id="pb_prequalify" src="https://app.paybright.com/dist/sdk.js?public_key=TJzgecT7sZTTGZFzwFtmKX9QGAV4KMwgNImVVIZYbI2rNyJ3nA&financedamount=${{ cart.total_price | divided_by: 100.00 | round: 2 }}"></script>
+            <script>
+        pb_prequalify_init({
+
+      });
+            </script>
+
+          
+      
+        </div>
+      {% else %}
+        <div class="cartitems-empty">
+          <div class="cartitems-empty--inner">
+            <p>{{ 'cart.general.cart_empty' | t }}</p>
+
+            {% if show_continue_link %}
+              <a class="button-primary" href="{{ continue_url }}"style="font-family: 'Heebo', sans-serif;font-size:16px;line-height:24px;font-weight:500; height:48px;padding-top:12px;padding-bottom:12px;text-transform:uppercase;color:#000; " >
+
+                {{ 'cart.general.continue_shopping' | t }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if has_sidebar %}
+      <div class="cart-sidebar">
+        {% for block in section.blocks %}
+          {% if block.type == 'image' %}
+            {% assign image = block.settings.image %}
+
+            <article class="cart-sidebar-item">
+              {% if image %}
+                {%
+                  include 'rimg',
+                  img: image,
+                  class: 'cart-sidebar-item-image',
+                  size: '445x',
+                  lazy: true,
+                  canvas: true
+                %}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder--image cart-sidebar-item-image' }}
+              {% endif %}
+            </article>
+          {% endif %}
+
+          {% if block.type == 'richtext' %}
+            <article class="cart-sidebar-item cart-sidebar-item--text rte">
+              {{ block.settings.richtext }}
+            </article>
+          {% endif %}
+
+          {% if block.type == 'page' %}
+            <article class="cart-sidebar-item cart-sidebar-item--text rte">
+              {{ pages[block.settings.page].content }}
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+ 
+    </section>
+</form>
+</div>
+
+
+{% if cart.total_price > 1000000 %}
+<div id="pop-up-notice" class="form-pop-up">
+  <div class="pop-up-background">
+    </div>
+<div class="pop-up-block" >
+  
+  <div class="pop-up-text">
+    <p>Our online checkout has a $10,000 limit. Please contact our customer service team to place your order.</p>
+    
+    
+    <div class="pop-up-info">
+      <div class="pop-up-icon">
+      <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/contact-phone.svg?v=1614555471">
+      <p>Call us at 1-877-761-2819 </p>
+    </div>
+    <div class="pop-up-icon">
+      <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/contact-mail.svg?v=1614555471">
+      <p>Email us at cs@tmgindustrial.com</p>
+    </div>
+    </div>
+  </div>
+  <div class="pop-up-close" onclick="closeForm()">
+    <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/pop-up-close.svg?v=1616053512">
+  </div>
+</div>
+  
+</div>
+
+
+{% else %}
+
+
+{% endif %}
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  
+  
+ 
+   function myFunction() {
+
+  document.getElementById("pop-up-notice").style.display = "block";
+  return false;
+
+  }
+
+  
+  
+  function closeForm() {
+  document.getElementById("pop-up-notice").style.display = "none";
+} 
+
+
+  function onclickfunc(){
+      addtext();
+      return myFunction();
+  }
+
+
+
+
+  
+/* GH code */  
+	function cartLogicSetup(){
+      	var checkBox03 = document.getElementById("forklift-yes"); 
+		var checkBox04 = document.getElementById("loadingdock-yes");
+  		/* This creates an array of all measurment-tag */
+		var elm = document.getElementsByClassName("measurement-tag");
+      	/* Creates an array of all cart item sizes based on the elm array */ 
+		var elmArray = [].map.call(elm, size => size.textContent);  
+      	/* Checks if any value in the array is above a defined size and stores it in overSize as bool */
+		var overSize = elmArray.some(checkSizeOver);
+		/* This sets a bool offload ability based on the results of the check boxes*/
+		var canCustomerOffload = checkForOffload(checkBox03.checked, checkBox04.checked);
+      	whatToDisplay(overSize, canCustomerOffload);
+      	
+	}  
+
+	/* This function checks if anything is above the max size and returns true if it is above. To change max size simply change the number */  
+	function checkSizeOver(elmArray){
+		return elmArray > 90;
+	}
+  
+  	function checkForOffload(a, b){
+    	if(a || b){
+    	return true;
+    	} return false;
+  	}
+  
+  	function whatToDisplay(a, b){
+      switch(true){
+        case (a == true && b == true):
+          displayTruck();
+          break;
+        case (a == true && b == false):
+          displayContact();
+          break;
+        case (a == false && b == true):
+          displayTailgate();
+          break;
+        case (a == false && b == false):
+          displayTailgate();
+          break;
+          default:
+          displayPleaseSelect();
+      }
+      
+ 	}
+  
+ function displayTruck(){
+  	console.log("display truck");
+    document.getElementById("tailgate-delivery").style.display = "none";
+    document.getElementById("full-truck").style.display = "block";
+    document.getElementById("default-delivery-info").style.display = "none";
+    document.getElementById("delivery-contact").style.display = "none";
+    document.getElementById("delivery-time").style.display = "block";
+    document.getElementById("checkout-cta").style.display = "block";
+    document.getElementById("contact-cta").style.display = "none";
+  }  
+  
+  function displayContact(){
+  	console.log("display contact");
+    document.getElementById("tailgate-delivery").style.display = "none";
+    document.getElementById("full-truck").style.display = "none";
+    document.getElementById("default-delivery-info").style.display = "none";
+    document.getElementById("delivery-contact").style.display = "block";
+    document.getElementById("delivery-time").style.display = "none";
+    document.getElementById("checkout-cta").style.display = "none";
+    document.getElementById("contact-cta").style.display = "block";
+  }
+  
+  function displayTailgate(){
+  	console.log("display tailgate");
+    document.getElementById("tailgate-delivery").style.display = "block";
+    document.getElementById("full-truck").style.display = "none";
+    document.getElementById("default-delivery-info").style.display = "none";
+    document.getElementById("delivery-contact").style.display = "none";
+    document.getElementById("delivery-time").style.display = "block";
+    document.getElementById("checkout-cta").style.display = "block";
+    document.getElementById("contact-cta").style.display = "none";
+  }
+  
+  function displayPleaseSelect(){
+  	console.log("Please select");
+    document.getElementById("tailgate-delivery").style.display = "none";
+    document.getElementById("full-truck").style.display = "none";
+    document.getElementById("default-delivery-info").style.display = "block";
+    document.getElementById("delivery-contact").style.display = "none";
+    document.getElementById("delivery-time").style.display = "none";
+    document.getElementById("checkout-cta").style.display = "none";
+    document.getElementById("contact-cta").style.display = "none";
+  }
+  
+  
+function clicktest() {
+
+  cartLogicSetup();
+   
+}
+
+  
+
+ function addforklifttext() {
+   
+   var selection = document.querySelector("input[name=forklift]:checked") !== null;
+   if (selection) {
+     return document.querySelector("input[name=forklift]:checked").value + "\n";
+   }
+   }
+ 
+
+ function addloadingdocktext() {
+   var checkBox = document.getElementById("loadingdock-yes");
+   if(checkBox.checked == true){
+     document.getElementById("loadingdock-yes-child").style.display = "block";
+   }else{
+     document.getElementById("loadingdock-yes-child").style.display = "none";
+   }
+   var selection1 = document.querySelector("input[name=loadingdock]:checked") !== null;
+   if (selection1) {
+     return document.querySelector("input[name=loadingdock]:checked").value + "\n";
+   }
+ }
+
+ function addtruck53text() {
+   var selection2 = document.querySelector("input[name=truck53]:checked") !== null;
+   if (selection2) {
+     return document.querySelector("input[name=truck53]:checked").value + "\n";
+   }
+ }
+
+ function addappointmenttext() {
+   var checkBox = document.getElementById("appointment-yes");
+   if(checkBox.checked == true){
+     document.getElementById("appointment-yes-child").style.display = "block";
+   }else{
+     document.getElementById("appointment-yes-child").style.display = "none";
+   }
+   var selection3 = document.querySelector("input[name=appointment]:checked") !== null;
+   if (selection3) {
+     return document.querySelector("input[name=appointment]:checked").value + "\n";
+   }
+ }
+
+ function adddeliverytext() {
+   var selection4 = document.querySelector("input[name=delivery]:checked") !== null;
+   if (selection4) {
+     return document.querySelector("input[name=delivery]:checked").value + "\n";
+   } 
+ }
+  
+
+
+  function addtext(){
+    
+    var forklifttext = addforklifttext();
+    var loadingdocktext = addloadingdocktext();
+    var truck53 = addtruck53text();
+    var appointmenttext = addappointmenttext();
+    var deliverydate = document.getElementById("delivery-date").value;
+    var deliverytext = adddeliverytext();
+    var extratext = document.getElementById("extra-note").value;
+    
+    if ((forklifttext !== undefined) && (loadingdocktext !== undefined) && (appointmenttext !== undefined) && (deliverytext !== undefined)){
+    	document.getElementById("cart-note").value += forklifttext;
+      	document.getElementById("cart-note").value += loadingdocktext;
+        document.getElementById("cart-note").value += truck53;
+      	document.getElementById("cart-note").value += appointmenttext;
+        document.getElementById("cart-note").value += "Delivery Date: " + deliverydate;
+      	document.getElementById("cart-note").value += deliverytext;
+        document.getElementById("cart-note").value += "Other notes: " + extratext;
+      
+    }
+
+  }
+
+  </script>
+
+
+
+{% schema %}
+{
+  "name": "Cart page",
+  "class": "cart--section",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_order_notes",
+      "label": "Enable order notes text box",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Shipping estimator"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shipping_calc",
+      "label": "Enable shipping estimator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_calc_default_country",
+      "label": "Default country",
+      "default": "United States"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "richtext",
+      "name": "Rich text",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "richtext",
+          "type": "richtext",
+          "label": "Rich text",
+          "default": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.</p>"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "limit": 1,
+      "settings": [
+        {
+          "id": "page",
+          "type": "page",
+          "label": "Choose page"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}
+
+

@@ -1,0 +1,221 @@
+
+
+
+<style>
+  
+
+  .btn-small{
+    
+    font-size:12px;
+    line-height:18px;
+    height:32px;
+    padding-top:7px;
+    text-align:center;
+    background-color:#EC662C;
+    width:108px;
+    color:#000;
+    font-weight:600;
+    
+  }
+  
+ 
+  .btn-small:hover{
+    
+    color:#fff;
+    background-color:#000;
+    
+  }
+  
+  .job-option{
+    
+    border-bottom:1px solid black;
+    width:100%;
+    float:left;
+    margin-bottom:16px;
+    
+    
+  }
+  
+  
+  
+  
+  .job-option-title{
+    
+    float:left;
+    display:inline-block;
+    
+    
+  }
+  
+  .job-option-arrow{
+    
+    float:right;
+    display:inline-block;
+    
+  }
+  
+  .job-option-arrow img{
+    
+    height:32px;
+    transition: all 0.3s ease; 
+  }
+  
+
+  .job-option-arrow.is-active img{
+    
+    transform: rotate(90deg);
+    transform-origin: center center;
+    transition: all 0.3s ease;
+  }
+  
+  .job-option-dropdown{
+    
+    margin-bottom:32px;
+    overflow: hidden; 
+    position: relative; 
+    margin-top:0px;
+    width:100%;
+    float:left;
+    
+  }
+  
+   @media only screen and (max-width: 858px) {
+      
+  
+     .job-option-title{
+       
+       font-size:16px;
+       line-height:24px;
+       
+     }
+     
+     .job-option-arrow img{
+    
+       height:24px;
+       transition: all 0.3s ease; 
+     }
+     
+     
+     
+     
+   }
+  
+
+
+  
+</style>
+<div>
+  {% for block in section.blocks %}
+    <section class="job-section">
+      <div class="job-option">
+        {% if block.settings.title != blank %}
+          <div
+            class="article-page-title job-option-title"
+               
+          >
+            
+            {{ block.settings.title | escape }}
+          </div>
+         <div class="job-option-arrow">
+           <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black-career.svg?v=1614846667">
+         </div>
+        {% endif %}
+       </div>
+  
+       <div class="job-option-dropdown">
+
+        {% if block.settings.text != blank %}
+          <div class="article-page-text job-option-text" data-rte>
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+        
+         {% if block.settings.link != blank %}
+         <a href="{{ block.settings.link }}" style="text-decoration:none;">
+          <div class="btn-small">
+            
+            {{ block.settings.button }}
+            
+          </div>
+         </a>
+  
+         {% endif %}
+         
+        </div>
+     
+  </section>
+      
+   
+  {% endfor %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  
+  
+
+  
+  $(document).ready(function(){
+ 
+    $('.job-option-dropdown').hide();
+$('.job-option').click(function() {
+   var $this = $(this).closest('section').find('.job-option-dropdown');
+   var $that = $(this).closest('section').find('.job-option-arrow');
+   $('.job-option-dropdown').not($this).slideUp();
+   $this.slideToggle('slow');
+   $that.toggleClass('is-active');
+ 
+   
+});
+});
+  
+  
+  
+
+  
+</script>
+{% schema %}
+{
+  "name": "Rich Text",
+  "class": "rich-text--section",
+  
+  "settings": [
+    
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Job Title",
+          "default": "Job Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Job Description",
+          "default": "<p>Job Description</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Job link"
+        },
+        {
+          "type": "text",
+          "id": "button",
+          "label": "button",
+          "default": "APPLY NOW"
+        }
+        
+        
+      ]
+    }
+    
+  ]
+}
+
+{% endschema %}

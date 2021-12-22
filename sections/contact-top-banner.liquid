@@ -1,0 +1,353 @@
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+
+<div class="page-full-width-image">
+  
+
+  <img src=" {{ section.settings.image01 | img_url: 'master' }}" class="modular-full-width-image-desktop">
+  
+  <img src=" {{ section.settings.image_mobile | img_url: 'master' }}" class="modular-full-width-image-mobile">
+ 
+ 
+    
+    <div class="modular-full-width-image-text">
+    <p class="modular-full-width-image-title">{{ section.settings.title01 }}</p>
+    <p class="modular-full-width-image-descripion-desktop">{{ section.settings.description01 }}</p>
+    <p class="modular-full-width-image-descripion-mobile">{{ section.settings.description_mobile }}</p>
+    
+    {% if section.settings.button != blank %}  
+    <a href="{{ section.settings.link01 }}">  
+    <div class="modular-full-width-image-cta-button">
+    	
+          {{ section.settings.button }}
+       
+    </div> 
+    </a> 
+   {% endif %}
+    
+    </div>
+  
+  
+ 
+
+  
+  
+</div>
+
+
+<style>
+  
+  .modular-full-width-image-desktop{
+    display:block;
+  }
+  
+  .modular-full-width-image-mobile{
+    display:none;
+  }
+  .modular-full-width-image-descripion-desktop{
+    display:block;
+  }
+  
+  .modular-full-width-image-descripion-mobile{
+    display:none;
+  }
+  
+  .page-full-width-image{
+    width:100%;
+    position:relative;
+    margin-top:96px;
+ 
+  }
+  
+  .page-full-width-image a{
+    text-decoration: none;
+  }
+  
+  .page-full-width-image img{
+    width:100%;
+  }
+  
+  .modular-full-width-image-text{ 
+	text-align: center;
+	width: 80%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    z-index:3; 
+    color:#fff;
+   }
+  
+  .modular-full-width-image-title{
+    position:relative; 
+    font-size:40px;
+    line-height:56px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  
+  .modular-full-width-image-descripion-desktop{
+    position:relative; 
+    font-size:20px;
+    line-height:32px;
+    font-weight:500;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    margin-top:8px;
+    margin-bottom:20px;
+    padding:0;
+  }
+ 
+ .modular-full-width-image-cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:12px;
+  background-color:#F06836;
+  width:140px;
+  height:48px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 16px;
+  line-height: 24px;
+  transition:all 0.3s ease;
+   
+}
+  
+
+  .modular-full-width-image-cta-button:hover {
+ 
+    color: #fff;
+    background-color:#000;
+    transition:all 0.3s ease;
+   
+}
+  
+
+/* responsive web - ipad pro */
+    
+     @media only screen and (max-width: 1024px){
+       
+       .page-full-width-image{
+   
+    margin-top:88px;
+ 
+  }
+ 
+       
+       
+     }
+
+
+
+  
+  /* responsive web - 996 */
+  @media only screen and (max-width: 996px){
+
+
+  
+
+ 
+    
+}
+    @media only screen and (max-width: 858px) {
+      
+      .page-full-width-image{
+   
+    margin-top:56px;
+   
+      
+      
+    }
+  
+   /* responsive web - ipad */
+ @media only screen and (max-width: 768px){
+   
+     
+    
+  }
+   
+   .modular-full-width-image-title{
+    position:relative; 
+    font-size:32px;
+    line-height:40px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  
+  .modular-full-width-image-descripion-desktop{
+    position:relative; 
+    font-size:16px;
+    line-height:24px;
+    font-weight:500;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    margin-top:8px;
+    margin-bottom:20px;
+    padding:0;
+  }
+ 
+ .modular-full-width-image-cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:11.5px;
+  background-color:#F06836;
+  width:128px;
+  height:44px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 14px;
+  line-height: 22px;
+  transition:all 0.3s ease;
+   
+}
+   
+ }
+  
+  @media only screen and (max-width:600px){
+    
+    .modular-full-width-image-desktop{
+    display:none;
+  }
+  
+  .modular-full-width-image-mobile{
+    display:block;
+  }
+  
+   .modular-full-width-image-descripion-desktop{
+    display:none;
+  }
+  
+  .modular-full-width-image-descripion-mobile{
+    display:block;
+  }
+    
+
+    .modular-full-width-image-title{
+    position:relative; 
+    font-size:24px;
+    line-height:32px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  
+  .modular-full-width-image-descripion-mobile{
+    position:relative; 
+    font-size:16px;
+    line-height:24px;
+    font-weight:500;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    margin-top:8px;
+    margin-bottom:20px;
+    padding:0;
+  }
+ 
+ .modular-full-width-image-cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:11.5px;
+  background-color:#F06836;
+  width:128px;
+  height:44px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 14px;
+  line-height: 22px;
+  transition:all 0.3s ease;
+   
+}
+    
+   
+
+    
+  
+  }
+</style>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Full Width Image",
+    "settings": [
+     
+	{
+         "type": "image_picker",
+         "label": "Desktop Image",
+         "id": "image01"
+       },
+    {
+         "type": "image_picker",
+         "label": "Mobile Image",
+         "id": "image_mobile"
+       },
+	{
+         "type":"url",
+         "id":"link01",
+         "label":"Link"
+      },
+	{
+         "type":"text",
+         "id":"title01",
+         "label":"title",
+         "default":"Welcome to Join Us"
+      },
+
+     {
+         "type":"text",
+         "id":"description01",
+         "label":"description_desktop",
+         "default":"Description"
+      },
+    {
+         "type":"text",
+         "id":"button",
+         "label":"button",
+         "default":"EXPLORE"
+      },
+	{
+         "type":"text",
+         "id":"description_mobile",
+         "label":"description_mobile",
+         "default":"Description"
+      }
+]
+    
+  }
+{% endschema %}

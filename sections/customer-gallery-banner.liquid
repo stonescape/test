@@ -1,0 +1,312 @@
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+
+<div class="page-full-width-image">
+  
+
+  <img src=" {{ section.settings.image01 | img_url: 'master' }}" class="modular-full-width-image-desktop">
+  <img src=" {{ section.settings.image_mobile | img_url: 'master' }}" class="modular-full-width-image-mobile">
+ 
+ 
+    
+    <div class="customer-gallery-banner-text">
+      <p class="customer-gallery-banner-title">{{ section.settings.intro }}</p>
+      <p class="customer-gallery-banner-description">{{ section.settings.title01 }}</p>
+    </div>
+
+  
+</div>
+
+
+<style>
+  
+  .modular-full-width-image-desktop{
+    display:block;
+  }
+  
+  .modular-full-width-image-mobile{
+    display:none;
+  }
+  
+  
+  .page-full-width-image{
+    width:100%;
+    position:relative;
+    margin-top:96px;
+    
+  }
+  
+  .page-full-width-image a{
+    text-decoration: none;
+  }
+  
+  .page-full-width-image img{
+    width:100%;
+  }
+  
+  .customer-gallery-banner-text{
+    
+    text-align:left;
+    position: absolute;
+    left:32px;
+    top:32px;
+    z-index:3; 
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    
+  }
+  
+  
+  
+  .customer-gallery-banner-title{
+    
+    position:relative; 
+    font-size:32px;
+    line-height:40px;
+    margin:0;
+    padding:0;
+    margin-bottom:24px;
+    font-weight:500;
+    font-family: 'Heebo', sans-serif;
+    
+  }
+  
+  .customer-gallery-banner-description{
+    
+    position:relative; 
+    font-size:16px;
+    line-height:24px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    max-width:600px;
+    
+  }
+  
+  
+ 
+   @media only screen and (max-width: 1059px){
+       
+       .page-full-width-image{
+   
+    margin-top:88px;
+ 
+  }
+ 
+     .customer-gallery-banner-text{
+    
+  
+    left:16px;
+   
+  }
+  
+       
+       
+     }
+  
+
+/* responsive web - ipad pro */
+    
+     @media only screen and (max-width: 1024px){
+       
+ 
+       
+       
+     }
+
+
+
+  
+  /* responsive web - 996 */
+  @media only screen and (max-width: 996px){
+
+
+  
+
+ 
+    
+}
+    @media only screen and (max-width: 858px) {
+      
+      .customer-gallery-banner-title{
+    
+   
+    font-size:24px;
+    line-height:32px;
+   
+    
+  }
+  
+  .customer-gallery-banner-description{
+    
+   
+    font-size:14px;
+    line-height:22px;
+    max-width:540px;
+  
+  }
+      
+    
+      
+    }
+  
+   /* responsive web - ipad */
+ @media only screen and (max-width: 768px){
+   
+   .customer-gallery-banner-description{
+    
+   
+    font-size:10px;
+    line-height:16px;
+    max-width:360px;
+  
+  }  
+    
+  
+   
+   
+   
+ }
+  
+  @media only screen and (max-width:600px){
+    
+    .modular-full-width-image-desktop{
+    display:none;
+  }
+  
+  .modular-full-width-image-mobile{
+    display:block;
+  }
+   .customer-gallery-banner-description{
+    
+   
+    font-size:14px;
+    line-height:22px;
+    max-width:90%;
+  
+  }  
+
+    
+  
+  }
+  
+  @media only screen and (max-width:414px){
+    
+    
+    
+   .customer-gallery-banner-title{
+    
+   
+    font-size:32px;
+    line-height:40px;
+   
+    
+  }
+    
+    
+   .customer-gallery-banner-description{
+    
+   
+    font-size:16px;
+    line-height:24px;
+    width:90%;
+  
+  }  
+
+    
+  
+  }
+  
+  @media only screen and (max-width:375px){
+    
+    
+    
+   .customer-gallery-banner-title{
+    
+   
+    font-size:32px;
+    line-height:40px;
+   
+    
+  }
+    
+    
+   .customer-gallery-banner-description{
+    
+   
+    font-size:14px;
+    line-height:22px;
+    width:90%;
+  
+  }  
+
+    
+  
+  }
+  
+  @media only screen and (max-width:320px){
+    
+    
+    
+   .customer-gallery-banner-title{
+    
+   
+    font-size:24px;
+    line-height:32px;
+   
+    
+  }
+    
+    
+   .customer-gallery-banner-description{
+    
+   
+    font-size:12px;
+    line-height:20px;
+    width:90%;
+  
+  }  
+
+    
+  
+  }
+</style>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Full Width Image",
+    "settings": [
+     
+	{
+         "type": "image_picker",
+         "label": "Desktop Image",
+         "id": "image01"
+       },
+    {
+         "type": "image_picker",
+         "label": "Mobile Image",
+         "id": "image_mobile"
+       },
+	
+     {
+         "type":"text",
+         "id":"intro",
+         "label":"Title",
+         "default":"Title"
+      },
+	{
+         "type":"text",
+         "id":"title01",
+         "label":"description",
+         "default":"Description"
+      }
+]
+    
+  }
+{% endschema %}

@@ -1,0 +1,70 @@
+{% if section.settings.button != blank %}
+<a href="{{ section.settings.link01 }}" style="text-decoration:none;">  
+    <div class="page-cta-button" >
+    	
+          {{ section.settings.button }}
+       
+    </div> 
+</a> 
+{% else %}
+{% endif %}
+
+<style>
+  
+  
+  
+   .page-cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:12px;
+  background-color:#F06836;
+  width:140px;
+  height:48px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 16px;
+  line-height: 24px;
+  transition:all 0.3s ease;
+   
+}
+  
+
+  .page-cta-button:hover {
+ 
+    color: #fff;
+    background-color:#000;
+    transition:all 0.3s ease;
+   
+}
+  
+  
+  
+  
+</style>
+
+{% schema %}
+  {
+    "name": "page center button",
+    "settings": [
+     
+	
+	{
+         "type":"url",
+         "id":"link01",
+         "label":"Link"
+      },
+    {
+         "type":"text",
+         "id":"button",
+         "label":"button",
+         "default":"EXPLORE"
+      }
+]
+    
+  }
+{% endschema %}

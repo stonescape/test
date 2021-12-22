@@ -1,0 +1,304 @@
+<style>
+ 
+.blog--container{
+  
+  margin-top:96px;
+  padding-top:24px;
+}
+  
+.blog--inner{
+  
+  margin:0 auto;
+  background-color:;
+ 
+}
+  
+.blog-title{
+  
+/*   float:left; */
+ 
+}
+  
+.blog--inner{
+  float:left;
+  padding-top:32px;
+}
+  
+.blog-main-title{
+    
+    font-family: 'Heebo', sans-serif;
+    font-size:64px;
+    line-height:72px;
+    font-weight:600;
+    color:{{ section.settings.font-color01 }};
+    float:left;
+  }
+  
+ .blog-sub-title{
+    
+    font-family: 'Heebo', sans-serif;
+    font-size:24px;
+    line-height:32px;
+    font-weight:medium;
+    color:{{ section.settings.font-color01 }};
+    text-align:right;
+    float:right;
+    margin-right:0;
+  }
+  
+
+  
+ @media only screen and (max-width: 1023px) {
+    
+  .blog--container{
+  
+  margin-top:88px;
+  
+}
+ }
+  @media only screen and (max-width: 414px) {
+    
+     .blog-main-title{
+    width:100%;
+    display:block;
+    font-size:48px;
+    line-height:56px;
+    float:left;
+  }
+  
+ .blog-sub-title{
+    width:100%;
+    display:block;
+    font-size:20px;
+    line-height:28px;
+    text-align:left;
+    float:left;
+    margin-right:auto;
+  }
+  
+ }
+</style>
+<script
+  type="application/json"
+  data-section-type="static-blog"
+  data-section-id="{{ section.id }}">
+</script>
+
+{% assign featured_post = section.settings.featured_post %}
+{% assign paginate_by = section.settings.posts_per_page_range | times: 1 %}
+
+{% assign show_featured = false %}
+{% if featured_post != '' and featured_post != blank %}
+  {% assign show_featured = true %}
+
+  {% comment %}
+    Don't show highlighted post if is not first page, or if tags are active
+  {% endcomment %}
+  {% if paginate.current_page != 1 and current_tags != blank %}
+    {% assign show_featured = false %}
+  {% endif %}
+{% endif %}
+
+<section class="blog--container">
+  
+  <div class="blog-title">
+    <div class="blog-main-title">N</div>
+    <div class="blog-sub-title">The latest from TMG Industrial</div>
+  </div>
+<!--   <header class="blog-title" style="background-color:blue;">
+    <h1>{{ section.settings.title }}</h1>
+    {% if section.settings.show_rss_link %}
+      <a href="{{ blog.url }}.atom">
+        {% include 'icon-rss' %}
+        <span class="visually-hidden">{{ 'general.accessibility.rss' | t: platform: title | escape }}</span>
+      </a>
+    {% endif %}
+  </header> -->
+ 
+  {% paginate blog.articles by paginate_by %}
+
+    {% if show_featured %}
+      {%
+        include 'article-excerpt-featured',
+        article: articles[featured_post]
+      %}
+    {% endif %}
+
+    <ul class="blog--inner">
+      {% for article in blog.articles %}
+        {%
+          include 'article-excerpt',
+          article: article
+          %}
+      {% else %}
+        <article class="blog--no-results">
+          <h2 class="blog--no-results-title">
+            {{ 'blog.general.empty_blog' | t }}
+          </h2>
+        </article>
+      {% endfor %}
+    </ul>
+
+    {% include 'pagination' %}
+  {% endpaginate %}
+  
+</section>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+<script>
+	'use strict';
+
+var LetterAnimation = function () {
+
+  var obj = {};
+
+  var init = function init(o) {
+    obj.strArr = o.arr;
+    obj.selector = '.' + o.selector;
+    obj.length = [];
+    obj.currentStr = 0;
+    obj.currentChar = 0;
+    obj.cursor = '<span class="cursor">|</span>';
+    obj.timeOut;
+
+    getStrLength();
+    writeStr();
+  };
+
+  var getStrLength = function getStrLength() {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = obj.strArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var str = _step.value;
+
+        obj.length.push(str.length);
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+  };
+
+  var writeStr = function writeStr() {
+
+    var humanize = Math.round(Math.random() * (300 - 60)) + 7;
+
+    obj.timeOut = setTimeout(function () {
+      obj.currentChar++;
+      var currentStrLength = obj.length[obj.currentStr],
+          strLetters = obj.strArr[obj.currentStr].substring(0, obj.currentChar);
+
+      $(obj.selector).html(strLetters + obj.cursor);
+
+      writeStr();
+
+      if (currentStrLength === obj.currentChar) {
+        clearTimeout(obj.timeOut);
+        setTimeout(function () {
+          deleteStr();
+        }, 1000);
+      }
+    }, humanize);
+
+    var deleteStr = function deleteStr() {
+
+      var humanize = Math.round(Math.random() * (300 - 60)) + 7;
+
+    };
+
+    var loopAnimation = function loopAnimation() {
+
+      if (obj.currentStr === obj.strArr.length - 1) {
+     
+        obj.currentStr++;
+      }
+
+      setTimeout(function () {
+        writeStr();
+      }, 1000);
+    };
+  };
+
+  return {
+    callInit: function callInit(obj) {
+      init(obj);
+    }
+  };
+}();
+
+var letterAnimation = new LetterAnimation.callInit({
+  arr: ['{{ section.settings.title }}'],
+  selector: 'blog-main-title'
+});
+	
+
+	
+</script>
+
+{% schema %}
+{
+  "name": "Blog pages",
+  "class": "blog--section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page Title",
+      "default": "Newsroom"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rss_link",
+      "label": "Show RSS link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date published",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show post author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show post excerpt",
+      "default": true
+    },
+    {
+      "type": "article",
+      "id": "featured_post",
+      "label": "Featured post"
+    },
+    {
+      "type": "range",
+      "id": "posts_per_page_range",
+      "label": "Posts per page",
+      "min": 6,
+      "max": 12,
+      "step": 3,
+      "default": 9
+    }
+  ]
+}
+
+{% endschema %}

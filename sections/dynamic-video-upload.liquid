@@ -1,0 +1,362 @@
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+
+<div class="modular-video">
+ 
+  <div class="black-shadow"></div> 
+  <video autoplay muted loop playsinline class="modular-video-desktop">
+    <source src="https://cdn.shopify.com/s/files/1/0875/1216/files/top-banner-video-testing02.mp4?v=1609816949" alt="" type="video/mp4">
+  </video>
+  
+   <video autoplay muted loop playsinline class="modular-video-mobile">
+    <source src="https://cdn.shopify.com/s/files/1/0875/1216/files/top-banner-video-mobile-testing02.mp4?v=1609816948" alt="" type="video/mp4">
+  </video>
+
+
+    
+    <div class="modular-video-text">
+    <p class="modular-video-title">{{ section.settings.title01 }}</p>
+    <p class="modular-video-descripion-desktop">{{ section.settings.description01 }}</p>
+    <p class="modular-video-descripion-mobile">{{ section.settings.description_mobile }}</p>
+    
+    <a href="{{ section.settings.link01 }}">  
+    <div class="cta-button">
+    	
+          {{ section.settings.button }}
+       
+    </div> 
+    </a> 
+   
+    
+    </div>
+  
+  
+ 
+
+  
+  
+</div>
+
+
+<style>
+  
+  .modular-video-desktop{
+    display:block;
+  }
+  
+  .modular-video-mobile{
+    display:none;
+  }
+  .modular-video-descripion-desktop{
+    display:block;
+  }
+  
+  .modular-video-descripion-mobile{
+    display:none;
+  }
+  
+  .modular-video{
+    width:100%;
+    position:relative;
+    margin-top:0px;
+    float:left;
+    z-index:1;
+    
+  }
+  
+  .black-shadow{
+    position:absolute;
+    width:100%;
+    background-color:black;
+    height:100%;
+    z-index:2;
+    opacity:0.3;
+  }
+  
+  .modular-video a{
+    text-decoration: none;
+  }
+  
+  .modular-video video{
+    width: 100%;
+    height: auto;
+  }
+  
+  .modular-video-text{ 
+	text-align: center;
+	width: 80%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    z-index:3; 
+    color:#fff;
+   }
+  
+  .modular-video-title{
+    position:relative; 
+    font-size:40px;
+    line-height:56px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  
+  .modular-video-descripion-desktop{
+    position:relative; 
+    font-size:20px;
+    line-height:32px;
+    font-weight:500;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    margin-top:8px;
+    margin-bottom:20px;
+    padding:0;
+  }
+ 
+ .cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:12px;
+  background-color:#F06836;
+  width:140px;
+  height:48px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 16px;
+  line-height: 24px;
+  transition:all 0.3s ease;
+   
+}
+  
+
+  .cta-button:hover {
+ 
+    color: #fff;
+    background-color:#000;
+    transition:all 0.3s ease;
+   
+}
+  
+/* responsive web - ipad pro */
+    
+     @media only screen and (max-width: 1024px){
+ 
+       
+       
+     }
+
+
+  
+ /* responsive web - 996 */
+  @media only screen and (max-width: 996px){
+ 
+  
+    .modular-video{
+    width:100%;
+    position:relative;
+    margin-top:0px;
+    float:left;
+    
+  }
+
+}
+  
+  /* responsive web - ipad */
+ @media only screen and (max-width: 768px){
+   
+    .modular-video-title{
+    position:relative; 
+    font-size:32px;
+    line-height:40px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  
+  .modular-video-descripion-desktop{
+    position:relative; 
+    font-size:16px;
+    line-height:24px;
+    font-weight:500;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    margin-top:8px;
+    margin-bottom:20px;
+    padding:0;
+  }
+ 
+ .cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:11.5px;
+  background-color:#F06836;
+  width:128px;
+  height:44px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 14px;
+  line-height: 22px;
+  transition:all 0.3s ease;
+   
+}
+   
+   
+ }
+  
+  
+   /* responsive web - mobile */
+  @media only screen and (max-width:600px){
+    
+  .modular-video-desktop{
+    display:none;
+  }
+  
+  .modular-video-mobile{
+    display:block;
+  }
+  
+   .modular-video-descripion-desktop{
+    display:none;
+  }
+  
+  .modular-video-descripion-mobile{
+    display:block;
+  }
+    
+
+    .modular-video-title{
+    position:relative; 
+    font-size:24px;
+    line-height:32px;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    font-weight:600;
+    margin:0;
+    padding:0;
+    
+  }
+  
+  
+  .modular-video-descripion-mobile{
+    position:relative; 
+    font-size:16px;
+    line-height:24px;
+    font-weight:500;
+    color:#fff;
+    font-family: 'Heebo', sans-serif;
+    margin-top:8px;
+    margin-bottom:20px;
+    padding:0;
+  }
+ 
+ .cta-button {
+ 
+  position: relative;
+  text-align:center;
+  margin:0 auto;
+  padding-top:11.5px;
+  background-color:#F06836;
+  width:128px;
+  height:44px;
+  border-radius:2px;
+  color: #000;
+  text-decoration: none;
+  font-family: 'Heebo', sans-serif;
+  font-weight:500;
+  font-size: 14px;
+  line-height: 22px;
+  transition:all 0.3s ease;
+   
+}
+   
+    
+    
+  
+
+    
+  
+  }
+</style>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Video",
+    "settings": [
+     
+	{
+         "type": "image_picker",
+         "label": "Image",
+         "id": "image01"
+       },
+    {
+         "type": "image_picker",
+         "label": "Image",
+         "id": "image_mobile"
+       },
+	{
+         "type":"url",
+         "id":"link01",
+         "label":"Link"
+      },
+	{
+         "type":"text",
+         "id":"title01",
+         "label":"title",
+         "default":"Module 01: Recommended Product"
+      },
+
+     {
+         "type":"text",
+         "id":"description01",
+         "label":"description_desktop",
+         "default":"Description"
+      },
+    {
+         "type":"text",
+         "id":"button",
+         "label":"button",
+         "default":"EXPLORE"
+      },
+	{
+         "type":"text",
+         "id":"description_mobile",
+         "label":"description_mobile",
+         "default":"Description"
+      }
+],
+    "presets": [
+    {
+      "category": "Video",
+      "name": "Uploaded Video"
+    }
+  ]
+    
+  }
+{% endschema %}

@@ -1,0 +1,132 @@
+<section class="key-measurements-section">
+<div class="gallery-5-title">
+  Key Measurements
+</div>
+<div class="gallery-5">
+
+  {% for block in section.blocks limit: section.blocks.size %}
+
+    {% if block.settings.image != blank %}
+      
+        {% if block.settings.link != blank %}{% endif %}
+          
+          <div class="gallery-5-block">
+            <div class="gallery-5-image">
+              <img src="{{ block.settings.image | img_url: 'master' }}" >
+            </div>
+          </div>
+        
+        {% if block.settings.link != blank %}
+  
+        
+  
+        {% endif %}
+     
+    {% else %}
+  <div class="gallery-5">
+    <div class="gallery-5-block" >
+      <div class="gallery-5-image">
+        <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/modular_optional.jpg?v=1614054662">
+      </div>
+    </div>
+  </div>
+    {% endif %}
+
+  {% endfor %}
+</div>
+</section>
+
+
+<style>
+  
+  .key-measurements-section{
+    
+    margin-bottom:128px;
+    
+    
+  }
+  
+  .gallery-5-title{
+    
+    font-family: 'Heebo', sans-serif;
+    font-size:14px;
+    line-height:22px;
+    font-weight:600;
+    padding-left:16px;
+    margin-bottom:16px;
+    
+  }
+  
+  
+  .gallery-5{
+    
+    width:100%;
+    padding:0 8px;
+  }
+  
+  .gallery-5-block{
+    
+    width:20%; 
+    float:left;
+    padding:0 8px;
+  
+  }
+  
+ 
+  .gallery-5-image img{
+    width:100%;
+    
+  }
+  
+
+  
+ @media only screen and (max-width: 600px){
+   
+  
+
+   .gallery-5-block{
+   
+    width:100%; 
+   
+    
+  }
+   
+   
+ }
+  
+  
+</style>
+
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "key-measurements",
+	"max_blocks": 10,
+    "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Image link"
+        }
+
+      ]
+    }
+  ]
+    
+  }
+{% endschema %}

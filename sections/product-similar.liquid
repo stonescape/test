@@ -1,0 +1,372 @@
+<style>
+  
+  .product-comparison-default{
+    
+    margin-left:0px;
+    margin-top:32px;
+    width:100%;
+    float:left;
+    margin-bottom:24px;
+    
+  }
+/*   $bp-large: */
+   @media only screen and (max-width: 1024px){
+     
+      .product-comparison-default{
+    
+   
+    margin-bottom:0px;
+    
+  }
+     
+     
+     
+ 
+       
+       
+     }
+  
+
+  
+  .product-comparison-5{
+    
+    width:100%;
+    padding:0 0px;
+    
+  }
+  
+  .product-comparison-block{
+    
+    width:20%; 
+    float:left;
+    padding-right:16px;
+  
+  }
+  
+  .product-comparison-block:last-child{
+    padding:0 0px;
+    padding-right:0px;
+
+  
+  }
+  
+ .product-comparison-list-block ul{
+   
+   list-style:none;
+   padding-left:0;
+   font-family: 'Heebo', sans-serif;
+   
+ }
+
+  .product-comparison-list-block ul li{
+   
+   padding-top:10px;
+   padding-left:8px;
+   background-color:#F5F5F5;
+   height:32px;
+   border-bottom:1px white solid;
+   font-size:12px;
+   
+   
+ }
+  
+ .product-comparison-list-section ul{
+   
+   list-style:none;
+   padding-left:0;
+   font-family: 'Heebo', sans-serif;
+   
+ }
+
+  .product-comparison-list-section ul li{
+   
+   padding-top:10px;
+   padding-left:8px;
+   background-color:#CECECE;
+   height:32px;
+   border-bottom:1px white solid;
+   font-size:12px;
+   
+   
+ }
+  
+ .product-comparison-image{
+   
+   height:300px;
+   background-color:white;
+   
+   
+ }
+  
+ .featured-product--inner{
+   
+   padding:0; 
+   height:300px;
+   
+ }
+  
+@media only screen and (min-width: 1280px){
+  
+  .product-comparison-image{
+   
+   height:320px;
+   background-color:white;
+   
+   
+ }
+  
+ .featured-product--inner{
+   
+   padding:0; 
+   height:320px;
+   
+ }
+  
+  
+}
+  
+ @media only screen and (max-width: 996px){
+   
+   .product-comparison-5{
+      width:100%;
+    
+    overflow-x:scroll; 
+    white-space:nowrap;
+   }
+   
+   /* Hide scrollbar for Chrome, Safari and Opera */
+.product-comparison-5::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.product-comparison-5 {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+   
+   
+   
+   .product-comparison-block{
+    
+    width:200px; 
+    float:none;
+    display: inline-block;
+  
+  }
+
+   
+   
+ }
+  
+  
+</style>
+<section class="product-section--container product-row--container product-recommendations--container">
+<div class="product-recommendations--title">
+  Compare with other similar products
+</div>
+<div class="product-comparison-default">
+  <div class="product-comparison-5">
+    
+    <div class="product-comparison-block product-comparison-list-section">
+      <div class="product-comparison-image">
+      </div>
+      <ul>
+         <li>
+          {{ section.settings.data01 }}
+         </li>
+         <li>
+          {{ section.settings.data02 }}
+         </li>
+         <li>
+          {{ section.settings.data03 }}
+         </li>
+         <li>
+          {{ section.settings.data04 }}
+         </li>
+         <li>
+          {{ section.settings.data05 }}
+         </li>
+       </ul>
+    </div>
+    
+{% for block in section.blocks %}
+{% assign product = all_products[block.settings.product] %}
+{% assign onboarding = false %}
+
+{% if product.empty? %}
+  {% assign onboarding = true %}
+{% endif %}
+
+<script
+  type="application/json"
+  data-section-type="dynamic-featured-product"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "settings": {
+      "cart_redirection": {{ section.settings.product_cart_redirect | json }},
+      "money_format": {{ shop.money_format | strip_html | json }},
+      "enable_video_autoplay": {{ section.settings.enable_video_autoplay | json }},
+      "enable_image_zoom": {{ settings.enable_image_zoom | json }},
+      "image_zoom_level": {{ settings.image_zoom_level | json }}
+    },
+    "context": {
+      "product_available": {{ 'product.buttons.add_to_cart' | t | json }},
+      "product_unavailable": {{ 'product.buttons.sold_out' | t | json }}
+    },
+    "product": {% unless onboarding %}{{ product | json }}{% else %}false{% endunless} %}
+  }
+</script>
+
+
+ <div class="product-comparison-block">
+<div class="product-comparison-image">
+<section class="featured-product--container product-comparison-list-block" data-product-wrapper style="padding:0;">
+  <div class="featured-product--inner" >
+     <a href="{{ product.url | within: collection }}" style="text-decoration:none;">
+    {%
+            include 'product-comparison-grid-item',
+            product: product
+          %}
+       
+    </a>
+    
+  </div>
+  <ul>
+         <li>
+          {{ block.settings.data01 }}
+         </li>
+         <li>
+          {{ block.settings.data02 }}
+         </li>
+         <li>
+          {{ block.settings.data03 }}
+         </li>
+         <li>
+          {{ block.settings.data04 }}
+         </li>
+         <li>
+          {{ block.settings.data05 }}
+         </li>
+       </ul>
+</section>
+</div>
+</div>
+
+
+{% endfor %}
+  </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+  "name": "Product Comparison",
+  "max_blocks": 4,
+  "settings": [
+
+     {
+          "type": "text",
+          "id": "data01",
+          "label": "data01",
+          "default":"Data Name"
+        },
+        {
+          "type": "text",
+          "id": "data02",
+          "label": "data02",
+          "default":"Data Name"
+        },
+        {
+          "type": "text",
+          "id": "data03",
+          "label": "data03",
+          "default":"Data Name"
+        },
+        {
+          "type": "text",
+          "id": "data04",
+          "label": "data04",
+          "default":"Data Name"
+        },
+        {
+          "type": "text",
+          "id": "data05",
+          "label": "data05",
+          "default":"Data Name"
+        }
+
+
+
+
+
+  ],
+
+  "blocks": [
+    {
+      "type": "new-arrival",
+      "name": "Product Comparison",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "data01",
+          "label": "data01",
+          "default":"Data 01"
+        },
+        {
+          "type": "text",
+          "id": "data02",
+          "label": "data02",
+          "default":"Data 02"
+        },
+        {
+          "type": "text",
+          "id": "data03",
+          "label": "data03",
+          "default":"Data 03"
+        },
+        {
+          "type": "text",
+          "id": "data04",
+          "label": "data04",
+          "default":"Data 04"
+        },
+        {
+          "type": "text",
+          "id": "data05",
+          "label": "data05",
+          "default":"Data 05"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison",
+      "category": "Image",
+      
+      "blocks": [
+        {
+          "type": "new-arrival"
+        },
+        {
+          "type": "new-arrival"
+        },
+        {
+          "type": "new-arrival"
+        },
+        {
+          "type": "new-arrival"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

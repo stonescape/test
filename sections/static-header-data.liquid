@@ -1,0 +1,2060 @@
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="static-header"
+  data-section-data>
+  {
+    "settings": {
+      "sticky_header": {{ section.settings.sticky_header | json }},
+      "live_search": {
+        "enable": {{ section.settings.enable_live_search | json }},
+        "enable_images": {{ section.settings.enable_live_search_images | json }},
+        "enable_content": {{ section.settings.enable_live_search_articles_pages | json }},
+        "money_format": {{ shop.money_format | strip_html | json }},
+        "context": {
+          "view_all_results": {{ 'search.general.view_all_results' | t | json }},
+          "view_all_products": {{ 'search.general.view_all_products' | t | json }},
+          "content_results": {
+            "title": {{ 'search.general.pages_and_posts_title' | t | json }},
+            "no_results": {{ 'search.general.pages_and_posts_no_results' | t | json }}
+          },
+          "no_results_products": {
+            "title": {{ 'search.general.no_results_products_title' | t: terms: '*terms*' | json }},
+            "message": {{ 'search.general.no_results_products_message' | t | json }}
+          }
+        }
+      }
+    },
+    "currency": {
+      "enable": {{ settings.enable_currency_converter | default: false }},
+      "shop_currency": {{ shop.currency | json }},
+      "default_currency": {{ settings.currency_converter_default | default: shop.currency | json }},
+      "display_format": {{ settings.currency_display_format | json }},
+      "money_format": {{ shop[settings.currency_display_format] | strip_html | json }},
+      "money_format_no_currency": {{ shop.money_format | strip_html | json }},
+      "money_format_currency": {{ shop.money_with_currency_format | strip_html | json }}
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&display=swap" rel="stylesheet">
+
+  <nav
+    class="site-navigation"
+    aria-label="{{ 'general.accessibility.nav_main' | t }}"
+  >
+    {%
+      include 'navmenu',
+      menu: section.settings.menu,
+      blocks: section.blocks,
+      is_mobile: false
+    %}
+
+   
+</nav>
+<div class="desktop-menu">
+<div class="notification">
+  <div class="notification-left">
+  <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/phone.svg?v=1612082858"><div class="notification-left-text">Call us at 1-877-761-2819 | Email us at cs@tmgindustrial.com</div>
+  </div>
+  <div class="notification-center">  
+  <img src="https://cdn.shopify.com/s/files/1/0875/1216/files/shipping_car.svg?v=1612082858"><div class="notification-center-text">Free shipping to CANADA & USA*</div>
+  </div>
+</div>
+
+<nav class="mega-menu">
+  <a href="https://tmgindustrial.com">
+		  	
+			<div class="tmg-logo">
+				<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/tmg-logo.svg?v=1612082858">
+			</div>
+  </a>
+  
+   {% include 'site-nav', linklist: section.settings.main_linklist %}
+
+  <div class="mega-nav-search">
+    
+   
+   
+     {%
+      include 'live-search-form',
+      quick_links: linklists[section.settings.quick_links],
+      enable_live_search: section.settings.enable_live_search,
+      enable_images: section.settings.enable_live_search_images,
+      enable_content: section.settings.enable_live_search_articles_pages
+    %}
+    
+    
+
+  	
+  </div>
+  
+  <ul class="ul-reset-right">
+	
+	<li>
+		<a href="/account">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/account.svg?v=1612082858">
+            <div class="ul-reset-right-text">Account</div>	
+		</a>
+	</li>
+	
+    <li>
+      <span
+        class="site-header-cart--count {% if cart.item_count > 0 %}visible{% endif %}"
+        data-header-cart-count="{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}">
+      </span>
+		<a href="/cart" data-effect="mfp-move-from-top">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/checkout.svg?v=1612082858">
+            <div class="ul-reset-right-text">Checkout</div>
+          
+          <a class="site-header-cart--button" href="/cart">
+      
+
+      <span class="visually-hidden">{{ 'general.accessibility.cart' | t }}</span>
+    </a>
+          
+          
+          
+        </a>
+	</li>
+    <li class='droppable-contact'>
+		<a href="" data-effect="mfp-move-from-top">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/contact.svg?v=1612082858">
+            <div class="ul-reset-right-text">Contact</div>
+        </a>
+        <div class="contact_toggle">
+          <div class="contact_toggle-block">
+            <a href="tel:+18777612819">Call us: 1-877-761-2819</a>
+          </div>
+          
+          
+          <div class="contact_toggle-block">
+            <a href="mailto:cs@tmgindustrial.com">Email: cs@tmgindustrial.com</a>
+          </div>
+          
+        </div>
+	</li>
+
+  </ul>
+</nav>
+</div>   <!-- desktop-menu -->
+
+
+<div class="mobile-menu">
+
+  <div class="notification">
+    <div class="notification-center">
+  
+       <div class="notification-center-text">Free shipping to CANADA & USA*</div>
+    </div>
+  </div>
+	
+	<div class="mobile_header">
+		
+		<div class="mobile_menu">
+          
+			<div class="mobile_menu_left">
+				<div class="hamburger">
+					<div class="hamburger_two" id="hamburger-1">
+						<span class="line01"></span>
+						<span class="line02"></span>
+					</div>
+					
+				</div>
+                <a href="https://tmgindustrial.com">
+		  	
+			<div class="tmg-logo">
+				<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/tmg-logo.svg?v=1612082858">
+			</div>
+  </a>
+                
+                
+			</div>
+          
+ 
+          
+			
+		  <div class="mobile_menu_right">
+            
+            <li class='droppable-contact'>
+		<a href="" data-effect="mfp-move-from-top">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/contact.svg?v=1612082858">
+            <div class="ul-reset-right-text">Contact</div>
+        </a>
+        <div class="contact_toggle">
+          <div class="contact_toggle-block">
+            <a href="href="tel:+18777612819"">Call us: 1-877-761-2819</a>
+          </div>
+          
+          
+          <div class="contact_toggle-block">
+            <a href="mailto:cs@tmgindustrial.com">Email: cs@tmgindustrial.com</a>
+          </div>
+          
+        </div>
+	    </li>
+        
+          <li style="position:relative;">
+              <span
+        class="mobile-header-cart--count {% if cart.item_count > 0 %}visible{% endif %}"
+        data-header-cart-count="{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}">
+              </span>
+		<a href="/cart" data-effect="mfp-move-from-top">
+			<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/checkout.svg?v=1612082858">
+          
+          <a class="mobile-header-cart--button" href="/cart">
+      
+
+      <span class="visually-hidden">{{ 'general.accessibility.cart' | t }}</span>
+          </a>
+          
+          
+          
+        </a>
+            </li>
+           
+		  </div>
+		</div>
+	</div>
+	
+	<div class="mobile_menu_toggle">
+      
+    
+     
+        
+  
+
+      
+      
+      {% include 'mobile-site-nav', linklist: section.settings.mobile_linklist %}
+      
+      
+      <div class="mobile_menu_toggle_menu">
+      
+      <div class="mobile_menu_toggle_category mobile_menu_toggle_list">
+						<a href="#">Category</a>
+						<div class="plus plus_category">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+	 </div>
+      
+      
+      <div class="mobile_menu_toggle_category_sub">
+        
+    			<div class="mobile_menu_toggle_machinery mobile_menu_toggle_list">
+						<a href="#">Machinery</a>
+						<div class="plus plus_machinery">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				</div>
+					
+					<div class="mobile_menu_toggle_machinery_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/machinery/category_construction">Construction</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/machinery/category_landscaping">Landscaping</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/machinery/category_pressure-washers">Pressure Washers</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/machinery/category_water-pump">Water Pump</a>
+						</div>
+					</div>
+      
+                <div class="mobile_menu_toggle_industrial mobile_menu_toggle_list">
+						<a href="#">Industrial</a>
+						<div class="plus plus_industrial">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				</div>
+					
+					<div class="mobile_menu_toggle_industrial_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/industrial-jobsite/category_generators">Generators</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/industrial-jobsite/category_shop-equipment">Shop Equipment</a>
+						</div>
+                        
+					</div>
+                
+                <div class="mobile_menu_toggle_storage mobile_menu_toggle_list">
+						<a href="#">Storage</a>
+						<div class="plus plus_storage">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				</div>
+					
+					<div class="mobile_menu_toggle_storage_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/storage/category_shelters">Shelters</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/storage/category_livestock-shelter">Livestock Shelter</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/storage/category_party-tent">Party Tents</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/storage/category_metal-garage">Metal Garages</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/storage/category_tool-storage">Tool Storage</a>
+						</div>
+					</div>
+      
+                  <div class="mobile_menu_toggle_attachments mobile_menu_toggle_list">
+						<a href="#">Attachments</a>
+						<div class="plus plus_attachments">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				</div>
+					
+					<div class="mobile_menu_toggle_attachments_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/attachments/category_skid-steer">Skid Steer</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/attachments/category_tractor">Tractor</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/attachments/category_excavator">Excavator</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/attachments/category_construction">Construction</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/attachments/category_other">Other</a>
+						</div>
+					</div>
+      
+                 <div class="mobile_menu_toggle_home mobile_menu_toggle_list">
+						<a href="#">Home & Garden</a>
+						<div class="plus plus_home">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				</div>
+					
+					<div class="mobile_menu_toggle_home_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_garage">Garage</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_generators">Generators</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_greenhouses">Greenhouses</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_landscaping">Landscaping</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_livestock-shelter">Livestock Shelter</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="#">Metal Garage</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_party-tent">Party Tent</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/home-garden/category_tool-storage">Tool Storage</a>
+						</div>
+					</div>
+      
+                  <div class="mobile_menu_toggle_automotive mobile_menu_toggle_list">
+						<a href="#">Automotive</a>
+						<div class="plus plus_automotive">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				  </div>
+					
+					<div class="mobile_menu_toggle_automotive_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="#">Auto Lifts</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/automotive/category_garage">Garage</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/automotive/category_shelters">Shelters</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/automotive/category_shop-equipment">Shop Equipment</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="https://tmgindustrial.com/collections/automotive/category_tool-storage">Tool Storage</a>
+						</div>
+					</div>
+      </div>  
+      <div class="mobile_menu_toggle_story mobile_menu_toggle_list">
+						<a href="#">Brand Story</a>
+	 </div>
+      <div style="padding:0px 16px;padding-top:16px;">
+      <div 
+           style="width:100%;height:16px;border-top:1.8px solid white;">
+					
+	  </div>
+      </div>
+      
+      <div class="mobile_menu_toggle_account mobile_menu_toggle_list">
+						<a href="#">Account</a>
+	 </div>
+      
+      
+                    <div class="mobile_menu_toggle_help mobile_menu_toggle_list">
+						<a href="#">Customer Care</a>
+						<div class="plus plus_help">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				  </div>
+					
+					<div class="mobile_menu_toggle_help_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="#">Shipping & Returns</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="#">Order Status</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="#">Warranty</a>
+						</div>
+					</div>
+      
+                    <div class="mobile_menu_toggle_joinus mobile_menu_toggle_list">
+						<a href="#">Join Us</a>
+						<div class="plus plus_joinus">
+							<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/arrow-black.svg?v=1612153763">
+						</div>
+				  </div>
+					
+					<div class="mobile_menu_toggle_joinus_sub">
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="#">Become A Partner</a>
+						</div>
+						<div class="mobile_menu_toggle_list_sub">
+							<a href="#">Career</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="#">Affiliate Program</a>
+						</div>
+                        <div class="mobile_menu_toggle_list_sub">
+							<a href="#">Invite a Friend</a>
+						</div>
+					</div>
+       <div class="mobile_menu_toggle_contact mobile_menu_toggle_list">
+				<a href="#">Contact</a>
+	   </div>
+       </div> <!-- mobile_menu_toggle_menu -->
+              
+       </div>
+  
+	</div>
+
+
+
+
+<style>
+
+/* #Basic Setting
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+* {
+	box-sizing: border-box;
+}
+ .mobile-menu{
+	 
+	 display:none !important;
+ }
+	
+ .notification{
+      
+         font-family: 'Heebo', sans-serif;
+         width:100%;
+         position: absolute;
+	     background: #EC662C;
+	     color: #000;	     
+	     height:46px;
+         top:0;
+	     left: 0;
+         text-align:center;
+         font-size:12px;
+         line-height: 16px;
+         font-weight:500;
+         z-index:0;
+         
+        
+    }
+  
+   .notification-left{
+     position: relative;
+     float:left;
+     display:inline-block;
+     margin-left:32px;
+     
+   }
+  
+   .notification-left img{
+         float:left;
+         width:16px;
+         display:inline-block;
+         padding-top:8px;
+         margin-right:4px;
+    }
+  
+  .notification-left-text{
+         float:left;
+         display:inline-block;
+         padding-top:8px;
+  }
+  
+  .notification-center{
+    position: relative;
+    float:none;
+    display:inline-block;
+    text-align:center;
+    width:50%;
+    margin:0 auto;
+    
+  }
+  .notification-center img{
+     float:left;
+     width:16px;
+     display:inline-block;
+     padding-top:8px;
+     margin-right:4px;
+  }
+  
+   .notification-center-text{
+         float:left;
+         display:inline-block;
+         padding-top:8px;
+  }
+  
+   
+
+
+.mega-menu {
+	
+	font-size: 0;
+	position: fixed;
+	z-index:998;
+	left:0;
+	top:32px;
+	width: 100%;
+	font-family: 'Heebo', sans-serif;
+	height:65px;
+	transition: all 0.2s ease;
+	background: #000;
+	font-weight: 500;
+
+}
+
+.mega-menu.active {
+	
+	
+	top:0px;
+	transition: all 0.2s ease;
+	
+	
+	}
+
+/* #Logo Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+  .tmg-logo{
+    
+    float: left;
+    display: inline-block;
+    margin-left:32px;
+    margin-top:16px;
+    
+  }
+  .tmg-logo img{
+    
+    width:171px;
+    
+    
+  }
+    
+
+/* #Universal and Default Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.ul-reset {
+	
+	float: left;
+	margin-left:32px;
+	padding: 0;
+	
+	
+}
+
+.ul-reset-right {
+	
+	float: right;
+	margin-right: 32px;
+	padding: 0;
+	
+	
+}
+  
+.mega-nav-search{
+  
+  display:inline-block;
+  float:left;
+  
+}
+  
+.mega-nav-search form{
+  
+  width:360px;
+  padding:16px 0;
+  
+}
+  
+.mega-nav-search input{
+  
+   border:none;
+   background-color:#fff;
+   font-size:14px;
+   line-height:24px;
+   font-weight:600;
+   width:100%;
+   padding:4px 0;
+   padding-left:4px;
+   
+}
+  
+.mega-nav-search input::placeholder{
+  
+   
+   padding-left:4px;
+  
+   
+}
+  
+  .mega-nav-search input:focus {
+    outline:none !important;
+}
+  
+  
+
+.mobile-nav-search{
+  
+  
+  margin:16px auto;
+  width:100%;
+  padding:0px 16px;
+  
+  
+}
+  
+.mobile-nav-search form{
+  
+  width:100%;
+  
+}
+  
+.mobile-nav-search input{
+  
+   border:none;
+   background-color:#fff;
+   font-size:14px;
+   line-height:24px;
+   font-weight:600;
+   width:100%;
+   padding:4px 0;
+   padding-left:4px;
+   border-radius: 0;
+   
+}
+  
+.mobile-nav-search input[type="search"] {
+  -webkit-appearance: none;
+}
+  
+.mobile-nav-search input::placeholder{
+  
+   
+   padding-left:4px;
+  
+   
+}
+  
+  .mobile-nav-search input:focus {
+    outline:none !important;
+}
+  
+
+
+/* #Navigation Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+.ul-reset li {
+	display: inline-block;
+  	font-size: 14px;
+  	line-height: 24px;
+  	position: relative;
+  	margin-right: 32px;
+  	
+}
+
+.ul-reset li > a {
+	
+	color: #fff;
+  	display: block;
+  	position: relative;
+  	padding: 20px 0;
+  	border-bottom: 1px solid transparent;
+  	text-decoration: none;
+  	opacity: 1;
+  	transition: all .3s ease
+}
+
+/* 
+
+.ul-reset li:hover > a {
+	
+	color:#EC662C;
+	transition: all .3s ease;
+
+} */
+  
+  .ul-reset li a:hover {
+	
+	color:#EC662C;
+	transition: all .3s ease;
+
+}
+   
+
+.ul-reset-right li {
+	display: inline-block;
+  	font-size: 12px;
+  	line-height: 16px;
+  	position: relative;
+  	margin-left: 32px;
+  	  	
+}
+  
+.ul-reset-right li > a {
+	
+  	display: block;
+  	position: relative;
+  	text-decoration: none;
+  	opacity: 1;
+  	transition: all .3s ease;
+}
+
+.ul-reset-right li > a:hover{
+    opacity: 0.48;
+	transition: all .3s ease;
+  
+}
+  
+.ul-reset-right-text{
+    float:left;
+    display: inline-block;
+    font-size:14px;
+    line-height:24px;
+    font-weight:600;
+    margin-left:4px;
+    color: #fff;
+    margin-top:20px;
+    opacity: 1;
+  	transition: all .3s ease;
+  
+}
+  
+/* .ul-reset-right-text:hover{
+  
+   opacity: 0.48;
+	transition: all .3s ease;
+} */
+  
+.ul-reset-right li > a img{
+	float:left;
+	width:24px;
+	opacity: 1;
+	transition: all .3s ease;
+	padding: 20px 0;
+}
+
+/* .ul-reset-right li > a img:hover{
+	
+	opacity: 0.48;
+	transition: all .3s ease;
+	
+}
+ */
+
+
+/* #Droppable Class Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.droppable {position: static;}
+.droppable:hover .menu_toggle {
+	
+	visibility: visible;
+	opacity: 1;
+	
+}
+
+.droppable-contact {position: static;}
+.droppable-contact:hover .contact_toggle {
+	
+	visibility: visible;
+	opacity: 1;
+	
+}
+
+
+
+.droppable02 {position: static;}
+.droppable02:hover .search_toggle {
+	
+	visibility: visible;
+	opacity: 1;
+	
+}
+
+
+
+/* #Droppable Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+    .menu_toggle{
+		
+	    visibility: hidden;
+		position: fixed;
+		z-index: 2;
+		left: 0;
+		height: 100%;
+		background-color: #000;
+		width: 100%;
+		opacity: 0;
+		transition: visibility 0s, opacity 0.2s ease;
+        padding-top:16px;
+				
+	}
+  
+    .menu_toggle.is-active{
+		
+	    visibility: visible;
+	    opacity: 1;
+	
+		position: fixed;
+		z-index: 2;
+		left: 0;
+		height: 100%;
+		background-color: #000;
+		width: 100%;
+		transition: visibility 0s, opacity 0.2s ease;
+        padding-top:16px;
+				
+	}
+  
+  
+  .mega-menu-level01-title{
+    
+    font-weight:600;
+  
+    
+  }
+  
+  
+  
+   .mega-menu-level02-title{
+    
+    font-weight:600;
+  
+    
+  }
+  
+  .mega-menu-level02-ul li a{
+    
+    padding:16px 0;
+  
+    
+  }
+  
+   .mega-menu-level03-title{
+    
+    font-weight:400;
+  
+    
+  }
+   
+  .mega-menu-level03-ul li{
+    display:block;
+    margin-left:-40px;
+    
+  }
+  
+  .mega-menu-level03-ul li a{
+    padding:2px 0;
+    
+  }
+  
+  .mega-menu-level02-li{
+    
+    vertical-align:top;
+  }
+  
+  
+	
+	.menu_toggle-default{
+		width: 100%;
+		padding: 0 24px;
+		padding-top: 0px;
+	}
+	.menu_toggle-block{
+		
+		width: 14%;
+		padding: 0 8px;
+		float: left;
+		
+	}
+	
+	.menu_toggle-block a{
+		
+		color: #fff;
+		text-decoration: none;
+		
+	}
+    
+    .menu_toggle-block a:hover{
+		
+		opacity:0.48;		
+	}
+	
+	.category-title {
+		margin-top:24px;
+		margin-bottom: 16px;
+		
+	}
+  
+    .category-hot-word{
+      
+      
+    }
+	
+	.category-sub {
+		font-weight: 400;
+	}
+	
+	.menu_toggle-block img{
+		width: 100%;
+		display: block;
+	}
+	
+  
+    .contact_toggle{
+		
+		visibility: hidden;
+		position: fixed;
+		z-index: 2;
+		right: 0;
+		height: 96px;
+		background-color: #222222;
+		width: 234px;
+		opacity: 0;
+		transition: visibility 0s, opacity 0.2s ease;
+        margin-top:65px;
+		
+	}
+  
+    .contact_toggle-block{
+      
+      border-bottom:1px solid #353535;
+      height:48px;
+      padding-top:12px;
+      padding-left:16px;
+    }
+    
+    .contact_toggle-block a{
+      
+      text-decoration:none;
+      color:#fff;
+      font-weight:500;
+      font-size:14px;
+      line-height:24px;
+      font-family: 'Heebo', sans-serif;
+      opacity:1;
+      transition: all .3s ease;
+    }
+  
+     .contact_toggle-block a:hover{
+     
+       opacity:0.48;
+       transition: all .3s ease;
+       
+    }
+    
+    
+  
+    .contact_toggle.is-active{
+		
+	    visibility: visible;
+	    opacity: 1;
+	
+		position: fixed;
+		z-index: 2;
+		left: 0;
+		height: 96px;
+		background-color: #222222;
+		width: 100%;
+		transition: visibility 0s, opacity 0.2s ease;
+				
+	}
+	
+/* 	.search_toggle{
+		
+		visibility: hidden;
+		position: fixed;
+		z-index: 2;
+		right: 0;
+		height: 64px;
+		background-color:#F06836;
+        margin-top:-8px;
+		width: 100%;
+		opacity: 0;
+		transition: visibility 0s, opacity 0.2s linear;
+		
+	}
+   
+   .search_toggle form{
+     padding:0 64px;
+     padding-top:16px;
+   }
+   
+   .search_toggle input{
+     border:none;
+     background-color:transparent;
+     font-size:16px;
+     line-height:24px;
+     font-weight:500;
+     color:black;
+     border-bottom:1.5px solid black;
+     width:100%;
+   }
+  
+   .search_toggle input::placeholder{
+     color:black;
+     opacity:0.72;
+     font-size:16px;
+     line-height:24px;
+     font-weight:500;
+   }
+	
+   .search_toggle input:focus{
+    
+    outline:none;
+    
+    } */
+/* #Mobile Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+ #mobile_menu{
+      
+      display: none;
+      overflow: auto;
+    }
+    
+   
+	
+	.mobile{
+		display: none;
+        overflow: auto;
+		}
+		
+		
+	.mobile_header{
+		position: fixed;
+		z-index: 999;
+		height: 56px;
+		
+		width: 100%;
+		left: 0;
+		top: 32px;
+		background-color: #000;
+        
+       	
+	}	
+  
+    .mobile_header.active{
+		position: fixed;
+		z-index: 999;
+		height: 56px;
+		
+		width: 100%;
+		left: 0;
+		top: 0px;
+		transition: all 0.2s ease;
+       	
+	}
+	
+	.mobile_header.is-active{
+		position: fixed;
+		z-index: 999;
+		height: 56px;
+		
+		width: 100%;
+		left: 0;
+		top: 0px;
+		transition: all 0.2s ease;
+       	
+	}
+	
+	
+	
+/* 
+	.mobile_screensize{
+	
+	position: absolute;
+	width: 100%;
+	background: #000;
+	height:64px;
+    top:0;
+	left: 0;
+    z-index:997;
+	
+}
+
+.mobile_notification {
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 6px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight:500;
+    color: #EC662C;
+    
+}
+
+.mobile_notification span {
+    display: inline-block;
+    animation: mobile_notification 20s linear infinite;
+    padding-left: 100%;
+} */
+
+/* Make it move */
+/* @keyframes mobile_notification {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+} */
+
+	
+	
+	.mobile_menu_left{
+		
+		float: left;
+		
+		
+	}
+	
+	.mobile_logo{
+      
+        float:left;
+		display:inline-block;
+		margin-left:16px;
+	
+	}
+	
+	.mobile_logo_svg{
+		margin: 16px auto;
+		height: 22px;
+		fill:white;
+	}
+	
+		
+	.mobile_menu_right{
+		float: right;
+		width: 30%;
+		
+
+	}
+  
+   .mobile_menu_right li{
+     
+     
+		float: right;
+		display:inline-block;
+        margin-top: 16px;
+		margin-bottom: 16px;
+        margin-right: 16px;
+		
+
+	}
+    
+    
+
+	  .mobile_cart_svg{
+		
+		
+		height: 24px;
+		width: 24px;
+		fill:white;
+		
+		
+	}
+	
+
+	
+	
+	 .hamburger{
+		 position: relative;
+         float:left;
+         display:inline-block;
+		 margin-top: 7px;
+		 margin-bottom: 16px;
+		 margin-left: 16px;
+		 width: 24px;
+		 height: 24px;
+         
+		 
+	 }
+	 
+	 .hamburger_two{
+		 position: absolute;
+		 top: 0px;
+		 
+	 }
+	
+     .line01{
+         width: 24px;
+		 height: 2px;
+		 background-color:#fff;
+		 display: block;
+		 margin: 12px auto;
+		 transition: all 0.3s ease-in-out;
+        }
+        
+            
+      .line02{
+         width: 24px;
+		 height: 2px;
+		 background-color:#fff;
+		 display: block;
+		 margin: 12px auto;
+		 transition: all 0.3s ease-in-out;
+        }
+        
+       
+
+         .line01.is-active{
+          -webkit-transform: translateY(7px) rotate(45deg);
+  -ms-transform: translateY(7px) rotate(45deg);
+  -o-transform: translateY(7px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
+  background-color:#fff;
+        }
+        
+        
+    .line02.is-active{
+         -webkit-transform: translateY(-7px) rotate(-45deg);
+  -ms-transform: translateY(-7px) rotate(-45deg);
+  -o-transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
+  background-color:#fff;
+        }
+	
+	
+	.mobile_menu_toggle{
+	    width: 100%; 
+		height:100%; 
+		background-color: #fff; 
+		position: fixed;
+		z-index: 888;
+		left: 0;
+		top:-1080px;
+		overflow: auto;
+		}
+	
+.mobile_menu_toggle.is-active{
+  
+		position: fixed;
+		z-index: 888;
+		left: 0;
+		height:94%;
+		background-color: #000;
+		width: 100%;
+		opacity: 1;
+		transition: all 0.3s ease-in-out;
+		/* Chrome, Safari, Opera */
+		-webkit-animation-name: move_menu_mobile;
+		-webkit-animation-duration: 0.3s;
+		-webkit-animation-delay: 0s;
+		/* Standard syntax */
+		animation-name: move_menu_mobile;
+		animation-duration: 0.3s;
+		animation-delay: 0s;
+		animation-fill-mode: forwards;
+		overflow: auto;
+		
+		
+	}
+
+
+    /* Chrome, Safari, Opera */
+	@-webkit-keyframes move_menu_mobile {
+    	from {top: -1080px;}
+		to {top: 56x;}
+	}
+ 
+	/* Standard syntax */
+	@keyframes move_menu_mobile {
+    	from {top: -1080px;}
+		to {top: 56px;}
+	}
+
+	
+	.shopall_mobile{
+		
+		margin-top: 0px;
+        overflow: auto;
+		
+	}
+	
+	 .shopall_mobile a{
+		
+		font-family: 'Heebo', sans-serif;
+		font-size: 15px;
+		line-height: 24px;
+		font-weight: 500;
+        font-weight:medium;
+		color: #fff;
+		text-decoration: none;
+			
+	}
+	
+	
+	
+    .plus{
+	    
+		 position: relative;
+		 float: right;
+		 margin-right: 16px;
+		 width: 24px;
+		  
+	 }
+    
+    .plus img{
+      
+      width:24px;
+      
+    }
+  
+    .plus_category{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_category.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+    
+    .plus_machinery{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_machinery.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+  
+    .plus_industrial{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_industrial.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+  
+     .plus_storage{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_storage.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+  
+     .plus_attachments{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_attachments.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+  
+     .plus_home{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_home.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+  
+     .plus_automotive{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_automotive.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+  
+    .plus_joinus{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_joinus.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+    
+     .plus_help{
+     
+      transition: all 0.3s ease;
+     
+    }
+  
+    .plus_help.is-active{
+      
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: all 0.3s ease;
+   
+	 }
+   
+    .mobile_menu_toggle_search input{
+		border: none;
+		margin-left: -8px;
+		margin-top: 0px;
+		background-color: transparent;
+		height:32px;
+		
+	}
+
+   
+	
+	.mobile_menu_toggle_search input::placeholder{
+		
+		font-family: 'Heebo', sans-serif; 
+		font-size: 15px;
+        font-weight:500;
+		color: #000;
+	}	
+	
+	
+	
+    .mobile_menu_toggle_list{
+		height: 48px;
+		padding-top: 12px;
+		padding-bottom:12px;
+		padding-left: 16px;
+        font-family: 'Heebo', sans-serif;
+        font-weight:500;
+        font-size:16px;
+        line-height:24px;
+		
+	}
+	
+    .mobile_menu_toggle_list a{
+		
+        text-decoration:none;
+        color:#fff;
+		
+	}
+  
+	.mobile_menu_toggle_list_sub{
+		height: 48px;
+		padding-top: 12px;
+		padding-bottom:12px;
+        padding-left: 16px;
+		background-color: #222222;
+        font-size:16px;
+        line-height:24px;
+        font-weight:400;
+        font-family: 'Heebo', sans-serif;
+        color:#fff;
+		
+	}
+  
+    .mobile_menu_toggle_list_sub a{
+      
+      color:#fff;
+      
+    }
+    
+  
+  .mobile_menu_toggle_category_sub{
+      
+      display: none;
+	  opacity: 0;
+   
+    }
+  
+     .mobile_menu_toggle_category_sub a{
+      
+      display: block;
+      text-decoration:none;
+   
+    }
+	
+    .mobile_menu_toggle_category_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+
+	
+	.mobile_menu_toggle_machinery_sub a{
+		display: block;
+         text-decoration:none;
+      color:#fff;
+
+	}
+  
+    
+	 	
+	.mobile_menu_toggle_machinery_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_machinery_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+  
+    .mobile_menu_toggle_industrial_sub a{
+		display: block;
+        text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_industrial_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_industrial_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+    
+    .mobile_menu_toggle_storage_sub a{
+		display: block;
+         text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_storage_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_storage_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+   
+    .mobile_menu_toggle_attachments_sub a{
+		display: block;
+        text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_attachments_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_attachments_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+  
+    .mobile_menu_toggle_home_sub a{
+		display: block;
+         text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_home_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_home_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+  
+    .mobile_menu_toggle_automotive_sub a{
+		display: block;
+         text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_automotive_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_automotive_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+  
+  
+     .mobile_menu_toggle_joinus_sub a{
+		 display: block;
+         text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_joinus_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_joinus_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+  
+     .mobile_menu_toggle_help_sub a{
+		display: block;
+         text-decoration:none;
+
+	}
+	
+	 	
+	.mobile_menu_toggle_help_sub{
+		
+		display: none;
+		opacity: 0;
+		
+	}
+	
+	.mobile_menu_toggle_help_sub.is-active{
+	    
+		display: block;
+		opacity: 1;
+		
+		
+	}
+	
+/*   desktop icon text remove */
+    @media only screen and (max-width: 1248px){
+    
+      .ul-reset-right-text{
+        display: none;
+      }
+      
+      
+    }
+	
+	
+	@media only screen and (max-width: 1029px) {
+		
+	.desktop-menu{
+		
+		display:none !important;
+		
+ 	}
+ 	
+ 	.mobile-menu{
+		
+		display:block !important;
+		
+ 	}
+      
+    .notification{
+      
+         font-family: 'Heebo', sans-serif;
+         width:100%;
+         position: absolute;
+	     background: #EC662C;
+	     color: #000;	     
+	     height:46px;
+         top:0;
+	     left: 0;
+         text-align:center;
+         font-size:12px;
+         line-height: 16px;
+         font-weight:500;
+         z-index:0;
+         
+        
+    }
+   
+    .notification-center{
+      
+     position:relative;
+     width:100%;
+     float:none;
+     text-align:center;
+     margin:0 auto;
+     
+/*      margin-left:16px; */
+     
+    }
+
+	
+       .notification-center-text{
+     
+     float:none;
+     
+    }
+    
+      .contact_toggle{
+		
+        margin-top:13px;
+		
+	}
+  .tmg-logo{
+    
+    float: left;
+    display: inline-block;
+    margin-left:0px;
+    margin-top:16px;
+    
+  }
+  .tmg-logo img{
+    
+    height:24px;
+    
+    
+  }
+      
+      .mega-nav-search{
+        
+        display:block !important;
+        
+      }
+		
+		
+		}
+
+
+</style>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+     
+	const header = document.querySelector('.mega-menu');
+	const mobile_header = document.querySelector('.mobile_header');
+
+	
+    
+
+	
+	window.onscroll = function(){
+		var top = window.scrollY;
+		if (top >= 16){
+			header.classList.add('active');
+            mobile_header.classList.add('active');
+  	
+		}else{
+			header.classList.remove('active');
+            mobile_header.classList.remove('active');
+           
+		}
+	}
+	
+ 
+
+$(document).ready(function(){
+  $(".droppable").hover(function(){
+	scrolltop = $(document).scrollTop();
+    header.classList.add('active');
+	
+    }    
+    );
+});
+
+
+$(document).ready(function(){
+  $(".droppable02").hover(function(){
+	scrolltop = $(document).scrollTop();
+    header.classList.add('active');
+	
+    }    
+    );
+});
+
+
+
+$(document).ready(function(){
+  $(".hamburger_two").click(function(){
+    $('.line01').toggleClass("is-active");
+    $('.line02').toggleClass("is-active");
+    $('.mobile_menu_toggle').toggleClass("is-active");
+    $('.mobile_header').toggleClass("is-active");
+    $('.mobile_logo_svg').toggleClass("is-active");
+    $('.mobile_cart_svg').toggleClass("is-active");
+    
+    return false;
+    
+  });
+});
+
+
+
+$(document).ready(function(){
+  $(".mobile_menu_toggle_category").click(function(){
+	 
+	$('.plus_category').toggleClass("is-active");
+    $('.mobile_menu_toggle_category_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+ 
+
+   $(document).ready(function(){
+  $(".mobile_menu_toggle_machinery").click(function(){
+	 
+	$('.plus_machinery').toggleClass("is-active");
+    $('.mobile_menu_toggle_machinery_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+
+   $(document).ready(function(){
+  $(".mobile_menu_toggle_industrial").click(function(){
+	  
+	$('.plus_industrial').toggleClass("is-active");
+    $('.mobile_menu_toggle_industrial_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+   $(document).ready(function(){
+  $(".mobile_menu_toggle_storage").click(function(){
+	  
+	$('.plus_storage').toggleClass("is-active");
+    $('.mobile_menu_toggle_storage_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+   $(document).ready(function(){
+  $(".mobile_menu_toggle_attachments").click(function(){
+	  
+	$('.plus_attachments').toggleClass("is-active");
+    $('.mobile_menu_toggle_attachments_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+   $(document).ready(function(){
+  $(".mobile_menu_toggle_home").click(function(){
+	  
+	$('.plus_home').toggleClass("is-active");
+    $('.mobile_menu_toggle_home_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+  
+  $(document).ready(function(){
+  $(".mobile_menu_toggle_automotive").click(function(){
+	  
+	$('.plus_automotive').toggleClass("is-active");
+    $('.mobile_menu_toggle_automotive_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+  
+  $(document).ready(function(){
+  $(".mobile_menu_toggle_help").click(function(){
+	  
+	$('.plus_help').toggleClass("is-active");
+    $('.mobile_menu_toggle_help_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+  
+  $(document).ready(function(){
+  $(".mobile_menu_toggle_joinus").click(function(){
+	  
+	$('.plus_joinus').toggleClass("is-active");
+    $('.mobile_menu_toggle_joinus_sub').toggleClass("is-active");
+    return false;
+   
+    
+  });
+});
+	
+</script>
+
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "site-header-wrapper",
+  "settings": [
+    {
+      "id": "sticky_header",
+      "type": "checkbox",
+      "label": "Enable sticky header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "id": "enable_live_search",
+      "type": "checkbox",
+      "label": "Enable live search",
+      "default": true
+    },
+    {
+      "id": "enable_live_search_images",
+      "type": "checkbox",
+      "label": "Show product images in live search results",
+      "default": true
+    },
+    {
+      "id": "enable_live_search_articles_pages",
+      "type": "checkbox",
+      "label": "Show blog posts and pages in live search results",
+      "default": true
+    },
+    {
+      "id": "quick_links",
+      "type": "link_list",
+      "label": "Quick links",
+      "info": "Displays menu links below the search box the first time it is opened. This menu won't show dropdown items."
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_linklist",
+      "label": "Main menu Mobile",
+      "default": "main-menu"
+    }
+  
+    
+  ]
+}
+
+{% endschema %}

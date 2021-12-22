@@ -1,0 +1,170 @@
+<link href="https://fonts.googleapis.com/css?family=Sora&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Abhaya+Libre&display=swap" rel="stylesheet">
+
+<style>
+ .customer-gallery-default{
+    width:100%; 
+    margin-top:16px;
+    padding:0 8px;
+    float:left;
+    margin-bottom:32px;
+    
+  }
+  
+ .customer-gallery-title{
+   font-family: 'Heebo', sans-serif;
+   font-weight:500;
+   font-size: 20px;
+   line-height:28px;
+   margin-bottom:8px;
+ }
+  
+.customer-gallery-adderss{
+   font-family: 'Heebo', sans-serif;
+   font-weight:400;
+   font-size: 14px;
+   line-height:16px;
+   margin-bottom:32px;
+   float:left;
+   margin-left:4px;
+ }
+  
+.customer-gallery{
+     float:left;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 flex-direction: column;
+}
+
+ .grid-container {
+	 columns: 3 200px;
+	 column-gap: 1.5rem;
+	 width: 100%;
+	 margin: 0 auto;
+}
+ .grid-container div {
+	 width: 150px;
+	 display: inline-block;
+	 width: 100%;
+	 margin-bottom:16px;
+}
+  
+  
+   .grid-container div:hover {
+	 opacity:0.64;
+}
+ .grid-container div img {
+	 width: 100%;
+}
+
+ .grid-container div p {
+	 margin: 5px 0;
+	 font-family: 'Heebo', sans-serif;
+     font-size: 12px;
+     line-height:16px;
+	
+}	
+  
+  
+ @media only screen and (max-width:320px){
+   
+   .customer-gallery-title{
+  
+   font-size: 16px;
+   line-height:24px;
+   margin-bottom:8px;
+ }
+   
+   
+    
+ }
+	
+</style>
+<div class="customer-gallery-default">
+  
+<div class="customer-gallery-title">
+  {{ section.settings.text }}
+</div>
+  
+<div>
+<img src="https://cdn.shopify.com/s/files/1/0875/1216/files/address-solid-black.svg?v=1620097921" style="float:left;height:16px;">
+<div class="customer-gallery-adderss">
+  {{ section.settings.text02 }}
+</div>
+</div>
+  
+  
+<div class="customer-gallery">
+
+  
+   <div class="grid-container">
+    {% for block in section.blocks limit: section.blocks.size %}
+  
+     <div>
+    <a href="{{ block.settings.link }}">    
+    <img class='grid-item' src="{{ block.settings.image | img_url: 'master' }}" > 
+    </a>
+    <p>{{ block.settings.text }}</p>
+     </div>
+
+    {% endfor %} 
+    
+  </div>
+   
+     
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Customer Gallery - Area01",
+    "settings": [
+     {
+      "type": "text",
+      "id": "text",
+      "label": "Product Name",
+      "default":"TMG-ST3050V Storage Shelter"
+     },
+     {
+      "type": "text",
+      "id": "text02",
+      "label": "Area Address",
+      "default":"Edgerton AB"
+     }
+   ],
+    "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Image Description",
+          "default":"Image Source"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Image link"
+        }
+      ]
+    }
+  ]
+    
+  }
+{% endschema %}

@@ -1,0 +1,108 @@
+{% if section.settings.enable_recently_viewed_products %}
+  {%- capture recently_viewed_data -%}
+    {%-
+      include 'product-recently-viewed',
+      product: product
+    -%}
+  {%- endcapture %}
+
+  <script
+    type="application/json"
+    data-section-type="static-recently-viewed"
+    data-section-id="{{ section.id }}"
+    data-section-data
+  >
+    {
+      {{ recently_viewed_data }}
+    }
+  </script>
+
+  <aside
+    aria-label="Recently viewed products"
+    class="product-section--container product-recently-viewed--section"
+  >
+    <div class="product-recently-viewed-wrapper">
+      <div class="product-recently-viewed-header">
+        <div class="product-recently-viewed-heading">
+          {{ 'general.time.previous' | t }}
+        </div>
+        <button
+          class="product-recently-viewed-clear"
+          data-clear-recently-viewed
+        >
+          {{ 'general.time.clear' | t }}
+        </button>
+      </div>
+
+      <ul
+        class="
+          product-section--content
+          product-recently-viewed--content
+          imagestyle--{{ settings.product_grid_image_style }}
+        "
+        data-recently-viewed-container
+        style="font-family: 'Heebo', sans-serif;"
+      ></ul>
+    </div>
+  </aside>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Recently viewed products",
+  "class": "recently-viewed--section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_recently_viewed_products",
+      "label": "Enable recently viewed products"
+    }
+  ]
+}
+
+{% endschema %}
+
+
+<style>
+  
+.product-recently-viewed-heading{
+  
+  font-size:16px;
+  line-height:16px;
+  font-weight:600;
+  font-family: 'Heebo', sans-serif;
+  
+}
+  
+.product-recently-viewed-clear{
+  
+  font-size:12px;
+  line-height:16px;
+  font-weight:600;
+  font-family: 'Heebo', sans-serif;
+  opacity:0.64;
+  color:#000;
+  
+}
+  
+.product-recently-viewed--section{
+  
+  padding: 0 32px;
+  margin-top:24px;
+  margin-bottom:32px;
+  
+}
+  
+  @media only screen and (max-width: 1029px) {
+    
+    .product-recently-viewed--section{
+  
+  padding: 0 16px;
+  
+}
+  }
+.product-recently-viewed-wrapper{
+  
+  
+}
+</style>
