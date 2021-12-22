@@ -1,0 +1,213 @@
+{% comment %}
+  @param address {Object}
+    Object containing address items
+
+  @param visible {Bool}
+    Determine if the address form is visible
+{% endcomment %}
+
+{% if address.id != null %}
+  {% assign address_id = address.id %}
+{% else %}
+  {% assign address_id = 'new' %}
+{% endif %}
+
+{% if visible != blank %}
+  {% assign visible = visible %}
+{% else %}
+  {% assign visible = false %}
+{% endif %}
+
+<div
+  class="account-address-form {% if visible %}visible{% endif %}"
+  data-address-id="{{ address_id }}">
+  <h2 class="account-page-subtitle">
+    {%- if address_id == 'new' -%}
+      {{ 'customers.addresses.add_new_title' | t }}
+    {%- else -%}
+      {{ 'customers.addresses.edit_existing_title' | t }}
+    {%- endif -%}
+  </h2>
+
+  {% form 'customer_address', address %}
+
+    <div class="form-fields-columns">
+      
+      
+      <div class="form-field form-field--half">
+        <span class="contact-form-label">
+          {{ 'customers.forms.first_name' | t }}
+        </span>
+        <input
+          class="form-field-input form-field-text"
+          id="customer_addr_{{ address_id }}_firstname"
+          name="address[first_name]"
+          type="text"
+          value="{{ form.first_name }}">
+
+        
+      </div>
+
+      <div class="form-field form-field--half">
+        <span class="contact-form-label">
+          {{ 'customers.forms.last_name' | t }}
+        </span>
+        <input
+          class="form-field-input form-field-text"
+          id="customer_addr_{{ address_id }}_lastname"
+          name="address[last_name]"
+          type="text"
+          value="{{ form.last_name }}">
+      </div>
+    </div>
+
+    <div class="form-field">
+       <span class="contact-form-label">
+          {{ 'customers.forms.company' | t }}
+        </span>
+      <input
+        class="form-field-input form-field-text"
+        id="customer_addr_{{ address_id }}_company"
+        name="address[company]"
+        type="text"
+        value="{{ form.company }}">
+    </div>
+
+    <div class="form-field">
+      <span class="contact-form-label">
+          {{ 'customers.forms.address_1' | t }}
+        </span>
+      <input
+        class="form-field-input form-field-text"
+        id="customer_addr_{{ address_id }}_address1"
+        name="address[address1]"
+        type="text"
+        value="{{ form.address1 }}">
+
+    </div>
+
+    <div class="form-field">
+      <span class="contact-form-label">
+           {{ 'customers.forms.address_2' | t }}
+        </span>
+      <input
+        class="form-field-input form-field-text"
+        id="customer_addr_{{ address_id }}_address2"
+        name="address[address2]"
+        type="text"
+        value="{{ form.address2 }}">
+
+    </div>
+
+    <div class="form-fields-columns">
+      <div class="form-field form-field--half">
+         <span class="contact-form-label">
+          {{ 'customers.forms.city' | t }}
+        </span>
+        <input
+          class="form-field-input form-field-text"
+          id="customer_addr_{{ address_id }}_city"
+          type="text"
+          name="address[city]"
+          value="{{form.city}}">
+
+      </div>
+
+      <div class="form-field form-field--half">
+        <span class="contact-form-label">
+          Country
+        </span>
+        <div class="form-field-select-wrapper">
+          <select
+            class="form-field-input form-field-select form-field-filled"
+            id="customer_addr_{{ address_id }}_country"
+            name="address[country]"
+            data-default="{{ form.country }}">
+            {{ country_option_tags }}
+          </select>
+          <label class="form-field-title" for="customer_addr_{{ address_id }}_country">
+            {{ 'customers.forms.country' | t }}
+          </label>
+          {% include 'icon-chevron-down-small' %}
+        </div>
+      </div>
+
+      <div class="form-field form-field--half" id="address_province_container_{{ address_id }}">
+        <span class="contact-form-label">
+          Province
+        </span>
+        <div class="form-field-select-wrapper">
+          <select
+            class="form-field-input form-field-select form-field-filled"
+            id="customer_addr_{{ address_id }}_province"
+            name="address[province]"
+            data-default="{{ form.province }}">
+          </select>
+          <label class="form-field-title" for="customer_addr_{{ address_id }}_province">
+            {{ 'customers.forms.province' | t }}
+          </label>
+          {% include 'icon-chevron-down-small' %}
+        </div>
+      </div>
+
+      <div class="form-field form-field--half">
+        <span class="contact-form-label">
+          {{ 'customers.forms.zip' | t }}
+        </span>
+        <input
+          class="form-field-input form-field-text"
+          id="customer_addr_{{ address_id }}_zip"
+          name="address[zip]"
+          type="text"
+          value="{{form.zip}}">
+      </div>
+
+      <div class="form-field form-field--half">
+        <span class="contact-form-label">
+          {{ 'customers.forms.phone' | t }}
+        </span>
+        <input
+          class="form-field-input form-field-text"
+          id="customer_addr_{{ address_id }}_phone"
+          name="address[phone]"
+          type="text"
+          value="{{form.phone}}">
+       
+      </div>
+
+      <div class="form-field form-field--half" style="margin-top:8px;">
+        <label class="form-field-checkbox" for="address_default_address_{{ address_id }}">
+          
+          <span class="contact-form-label">
+         {{ form.set_as_default_checkbox }}
+        </span>
+
+          <span class="form-icon--checkbox">
+            {%- include 'icon-checkbox' -%}
+          </span>
+           
+          <span class="contact-form-label">
+         {{ 'customers.addresses.set_default' | t }}
+        </span>
+         
+        </label>
+      </div>
+    </div>
+
+    <div class="account-address-form-btn">
+      <button class="button-primary" type="submit" id="submit-{{form.id}}" style="margin:0 auto; text-align:center; width:160px;font-size:16px;line-height:24px;font-weight:500; height:48px;padding-top:12px;padding-bottom:12px;color:#000; font-family: 'Heebo', sans-serif;text-transform:uppercase;">
+        {%- if address_id == 'new' -%}
+          {{ 'customers.addresses.submit' | t }}
+        {%- else -%}
+          {{ 'customers.addresses.update' | t }}
+        {%- endif -%}
+      </button>
+
+      {%- unless address_id == 'new' -%}
+        <button class="button-secondary" type="button" data-edit-address-cancel style="margin:0 auto; text-align:center; width:160px;font-size:16px;line-height:24px;font-weight:500; height:48px;padding-top:12px;padding-bottom:12px;color:#000; font-family: 'Heebo', sans-serif;text-transform:uppercase;">
+          {{ 'customers.forms.cancel' | t }}
+        </button>
+      {%- endunless -%}
+    </div>
+  {% endform %}
+</div>
